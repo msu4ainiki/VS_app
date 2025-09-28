@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Беговой Турнир</title>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="team left-team">
+            <div class="image-container">
+                <!-- ЗАМЕНИТЕ ЭТУ ССЫЛКУ НА СВОЮ -->
+                <img id="left-image" src="https://example.com/left-participant-1.jpg" alt="Участник левой команды" class="participant-image">
+            </div>
+            <div class="team-name">КОМАНДА А</div>
+            <div class="controls">
+                <button id="left-prev" class="nav-button">◀</button>
+                <button id="left-next" class="nav-button">▶</button>
+            </div>
+        </div>
+
+        <div class="vs-section">
+            <div class="vs-text">VS</div>
+        </div>
+
+        <div class="team right-team">
+            <div class="image-container">
+                <!-- ЗАМЕНИТЕ ЭТУ ССЫЛКУ НА СВОЮ -->
+                <img id="right-image" src="https://example.com/right-participant-1.jpg" alt="Участник правой команды" class="participant-image">
+            </div>
+            <div class="team-name">КОМАНДА Б</div>
+            <div class="controls">
+                <button id="right-prev" class="nav-button">◀</button>
+                <button id="right-next" class="nav-button">▶</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
