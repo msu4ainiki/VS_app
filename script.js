@@ -4,14 +4,14 @@ tg.enableClosingConfirmation();
 
 // ЗАМЕНИТЕ ССЫЛКИ НА ВАШИ ИЗОБРАЖЕНИЯ!
 const leftTeamImages = [
-    'https://example.com/left-participant-1.png', // PNG с прозрачностью
-    'https://example.com/left-participant-2.png',
+    'https://disk.yandex.ru/i/tyvL_ZAMsfVJdQ', // PNG с прозрачностью
+    'https://disk.yandex.ru/i/lhIcNLu7VOIxMg',
     'https://example.com/left-participant-3.png'
 ];
 
 const rightTeamImages = [
-    'https://example.com/right-participant-1.png', // PNG с прозрачностью
-    'https://example.com/right-participant-2.png',
+    'https://disk.yandex.ru/i/lhIcNLu7VOIxMg', // PNG с прозрачностью
+    'https://disk.yandex.ru/i/tyvL_ZAMsfVJdQ',
     'https://example.com/right-participant-3.png'
 ];
 
