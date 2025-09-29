@@ -102,6 +102,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+    transition: transform 0.3s ease;
 }
 
 /* Левая команда - диагональ сверху-слева вниз-вправо */
@@ -123,6 +124,7 @@ body {
     top: 30%;
     left: 20%;
     z-index: 3;
+    transform: scale(1);
 }
 
 /* Правая команда - диагональ сверху-справа вниз-влево */
@@ -144,6 +146,7 @@ body {
     top: 30%;
     right: 20%;
     z-index: 3;
+    transform: scale(1);
 }
 
 .participant-image {
@@ -154,6 +157,22 @@ body {
     border-radius: 8px;
     position: relative;
     z-index: 2;
+}
+
+/* Анимация только для изменяемого изображения */
+.image-changing {
+    animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
 }
 
 .team-name {
@@ -374,21 +393,6 @@ body {
     margin-top: 10px;
 }
 
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: scale(0.95);
-    }
-    to {
-        opacity: 1;
-        transform: scale(1);
-    }
-}
-
-.image-changing {
-    animation: fadeIn 0.3s ease-out;
-}
-
 /* Адаптивность для очень маленьких экранов */
 @media (max-height: 700px) {
     .header-title h1 {
@@ -430,4 +434,4 @@ body {
         font-size: 14px;
         width: 180px;
     }
-        }
+}
