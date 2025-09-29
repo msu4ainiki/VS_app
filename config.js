@@ -12,7 +12,7 @@ const imageConfig = {
     // Изображения для правой команды (Лыжники)
     rightTeamImages: [
     'https://raw.githubusercontent.com/msu4ainiki/VS_app/b78a29d593a1bc549fb58a527fe78b9a3383d384/img/Screenshot_20250928-234623%7E4.png', // PNG с прозрачностью
-    'https://github.com/msu4ainiki/VS_app/raw/refs/heads/main/img/0QLvKh5wGOI~2.jpg',
+    'https://github.com/msu4ainiki/VS_app/raw/refs/heads/main/img/1759160143809_copy_504x489.png',
     'https://github.com/msu4ainiki/VS_app/raw/refs/heads/main/img/1759143592630.png'
     ]
 };
