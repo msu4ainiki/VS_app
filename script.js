@@ -3,51 +3,28 @@ tg.expand();
 tg.enableClosingConfirmation();
 
 // Используем изображения из конфигурации
-const leftTeamImages = imageConfig.leftTeamImages;
-const rightTeamImages = imageConfig.rightTeamImages;
+const runners = imageConfig.runners;
+const skiers = imageConfig.skiers;
 
-let currentLeftIndex = 0;
-let currentRightIndex = 0;
+// Индексы для каждого участника
+let leftIndices = [0, 1, 2]; // Бегуны
+let rightIndices = [0, 1, 2]; // Лыжники
 
-const leftImage = document.getElementById('left-image');
-const rightImage = document.getElementById('right-image');
-const leftImageContainer = leftImage.parentElement;
-const rightImageContainer = rightImage.parentElement;
-
-const leftPrevBtn = document.getElementById('left-prev');
-const leftNextBtn = document.getElementById('left-next');
-const rightPrevBtn = document.getElementById('right-prev');
-const rightNextBtn = document.getElementById('right-next');
-const saveButton = document.getElementById('save-button');
-
-// Создаем индикаторы
-const leftInfo = document.createElement('div');
-leftInfo.className = 'participant-info';
-leftInfo.textContent = '1/' + leftTeamImages.length;
-leftImageContainer.parentElement.appendChild(leftInfo);
-
-const rightInfo = document.createElement('div');
-rightInfo.className = 'participant-info';
-rightInfo.textContent = '1/' + rightTeamImages.length;
-rightImageContainer.parentElement.appendChild(rightInfo);
-
-// Функция для проверки прозрачности и включения свечения
-function checkTransparencyAndAddGlow(imageElement, container) {
-    if (imageElement.src.includes('.png')) {
-        container.classList.add('glow-effect');
-    } else {
-        container.classList.remove('glow-effect');
-    }
+// Функция для загрузки изображения
+function loadImage(imageElement, imageUrl) {
+    return new Promise((resolve, reject) => {
+        imageElement.onload = resolve;
+        imageElement.onerror = reject;
+        imageElement.src = imageUrl;
+    });
 }
 
 // Функция смены изображения с анимацией
-function changeImage(imageElement, container, newSrc, infoElement, currentIndex, total) {
+function changeImage(imageElement, newSrc) {
     imageElement.classList.add('image-changing');
     imageElement.src = newSrc;
-    infoElement.textContent = (currentIndex + 1) + '/' + total;
     
     imageElement.onload = function() {
-        checkTransparencyAndAddGlow(imageElement, container);
         setTimeout(() => {
             imageElement.classList.remove('image-changing');
         }, 300);
@@ -57,187 +34,182 @@ function changeImage(imageElement, container, newSrc, infoElement, currentIndex,
     imageElement.onerror = function() {
         console.error('Ошибка загрузки изображения:', newSrc);
         imageElement.alt = 'Изображение не загружено';
-        container.classList.remove('glow-effect');
         setTimeout(() => {
             imageElement.classList.remove('image-changing');
         }, 300);
     };
 }
 
-// Функция для создания и сохранения скриншота
-function saveScreenshot() {
+// Функция обновления всех изображений
+function updateAllImages() {
+    // Обновляем бегунов
+    for (let i = 0; i < 3; i++) {
+        const imageElement = document.getElementById(`left-image-${i + 1}`);
+        if (imageElement && runners[leftIndices[i]]) {
+            changeImage(imageElement, runners[leftIndices[i]]);
+        }
+    }
+    
+    // Обновляем лыжников
+    for (let i = 0; i < 3; i++) {
+        const imageElement = document.getElementById(`right-image-${i + 1}`);
+        if (imageElement && skiers[rightIndices[i]]) {
+            changeImage(imageElement, skiers[rightIndices[i]]);
+        }
+    }
+}
+
+// Инициализация изображений
+function loadInitialImages() {
+    updateAllImages();
+}
+
+// Создание обработчиков для кнопок
+function setupEventListeners() {
+    // Обработчики для бегунов
+    for (let i = 0; i < 3; i++) {
+        const prevBtn = document.getElementById(`left-prev-${i + 1}`);
+        const nextBtn = document.getElementById(`left-next-${i + 1}`);
+        
+        if (prevBtn && nextBtn) {
+            prevBtn.addEventListener('click', () => {
+                leftIndices[i] = (leftIndices[i] - 1 + runners.length) % runners.length;
+                updateAllImages();
+            });
+            
+            nextBtn.addEventListener('click', () => {
+                leftIndices[i] = (leftIndices[i] + 1) % runners.length;
+                updateAllImages();
+            });
+        }
+    }
+    
+    // Обработчики для лыжников
+    for (let i = 0; i < 3; i++) {
+        const prevBtn = document.getElementById(`right-prev-${i + 1}`);
+        const nextBtn = document.getElementById(`right-next-${i + 1}`);
+        
+        if (prevBtn && nextBtn) {
+            prevBtn.addEventListener('click', () => {
+                rightIndices[i] = (rightIndices[i] - 1 + skiers.length) % skiers.length;
+                updateAllImages();
+            });
+            
+            nextBtn.addEventListener('click', () => {
+                rightIndices[i] = (rightIndices[i] + 1) % skiers.length;
+                updateAllImages();
+            });
+        }
+    }
+}
+
+// Функция для создания плаката
+function createPoster() {
     const screenshotArea = document.getElementById('screenshot-area');
+    const saveButton = document.getElementById('create-poster');
     
-    // Показываем индикатор загрузки
-    saveButton.textContent = '📸 Сохраняем...';
+    // Показываем загрузку
+    const originalText = saveButton.textContent;
+    saveButton.textContent = '🖼️ Создаём...';
     saveButton.disabled = true;
-    
-    // Создаем скриншот
+
+    // Создаем плакат с помощью html2canvas
     html2canvas(screenshotArea, {
         backgroundColor: '#000000',
-        scale: 2, // Увеличиваем качество в 2 раза
-        useCORS: true, // Разрешаем CORS для изображений
-        allowTaint: true,
+        scale: 2,
+        useCORS: true,
+        allowTaint: false,
         logging: false
     }).then(canvas => {
-        // Создаем ссылку для скачивания
-        const link = document.createElement('a');
-        link.download = `бегуны-против-лыжников-${Date.now()}.png`;
-        link.href = canvas.toDataURL('image/png', 1.0);
-        link.click();
+        // Конвертируем canvas в Data URL
+        const dataUrl = canvas.toDataURL('image/png', 1.0);
+        
+        // Показываем модальное окно с результатом
+        showPosterModal(dataUrl);
         
         // Восстанавливаем кнопку
-        saveButton.textContent = '💾 Сохранить';
+        saveButton.textContent = originalText;
         saveButton.disabled = false;
         
-        // Виброотклик при успешном сохранении
-        if (tg.isVibrationSupported) {
-            tg.HapticFeedback.impactOccurred('medium');
+        // Виброотклик
+        if (window.Telegram?.WebApp?.HapticFeedback) {
+            window.Telegram.WebApp.HapticFeedback.impactOccurred('medium');
         }
     }).catch(error => {
-        console.error('Ошибка при создании скриншота:', error);
-        saveButton.textContent = '💾 Сохранить';
+        console.error('Ошибка создания плаката:', error);
+        saveButton.textContent = originalText;
         saveButton.disabled = false;
-        
-        // Виброотклик при ошибке
-        if (tg.isVibrationSupported) {
-            tg.HapticFeedback.impactOccurred('error');
-        }
+        alert('Ошибка создания плаката. Попробуйте еще раз.');
     });
 }
 
-// Загрузка первых изображений
-function loadInitialImages() {
-    if (leftTeamImages.length > 0) {
-        leftImage.src = leftTeamImages[currentLeftIndex];
-    }
-    if (rightTeamImages.length > 0) {
-        rightImage.src = rightTeamImages[currentRightIndex];
+// Функция показа модального окна с плакатом
+function showPosterModal(imageUrl) {
+    const modal = document.getElementById('poster-modal');
+    const posterImage = document.getElementById('poster-result');
+    const closeButton = document.getElementById('close-poster');
+    const shareButton = document.getElementById('share-poster');
+    
+    // Устанавливаем изображение
+    posterImage.src = imageUrl;
+    
+    // Показываем модальное окно
+    modal.classList.add('active');
+    
+    // Обработчик закрытия
+    closeButton.onclick = () => {
+        modal.classList.remove('active');
+    };
+    
+    // Обработчик кнопки "Поделиться"
+    shareButton.onclick = () => {
+        sharePoster(imageUrl);
+    };
+    
+    // Закрытие по клику на фон
+    modal.onclick = (e) => {
+        if (e.target === modal) {
+            modal.classList.remove('active');
+        }
+    };
+}
+
+// Функция для шаринга плаката
+function sharePoster(imageUrl) {
+    // Создаем временную ссылку для скачивания
+    const link = document.createElement('a');
+    link.download = `бегуны-против-лыжников-${Date.now()}.png`;
+    link.href = imageUrl;
+    
+    try {
+        // Пытаемся скачать (работает в браузерах)
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    } catch (error) {
+        console.log('Прямое скачивание недоступно');
     }
     
-    leftImage.onload = function() {
-        checkTransparencyAndAddGlow(leftImage, leftImageContainer);
-    };
-    rightImage.onload = function() {
-        checkTransparencyAndAddGlow(rightImage, rightImageContainer);
-    };
+    // Показываем инструкцию для Telegram
+    alert('Плакат готов! Вы можете:\n\n1. Сохранить изображение долгим нажатием\n2. Отправить его в любой чат\n3. Установить как обои');
 }
 
-// Обработчики для левой команды
-leftPrevBtn.addEventListener('click', () => {
-    if (leftTeamImages.length > 0) {
-        currentLeftIndex = (currentLeftIndex - 1 + leftTeamImages.length) % leftTeamImages.length;
-        changeImage(leftImage, leftImageContainer, leftTeamImages[currentLeftIndex], leftInfo, currentLeftIndex, leftTeamImages.length);
+// Инициализация при загрузке
+document.addEventListener('DOMContentLoaded', function() {
+    // Настройка обработчиков кнопок
+    setupEventListeners();
+    
+    // Загрузка начальных изображений
+    loadInitialImages();
+    
+    // Обработчик кнопки создания плаката
+    const createPosterBtn = document.getElementById('create-poster');
+    if (createPosterBtn) {
+        createPosterBtn.addEventListener('click', createPoster);
     }
 });
 
-leftNextBtn.addEventListener('click', () => {
-    if (leftTeamImages.length > 0) {
-        currentLeftIndex = (currentLeftIndex + 1) % leftTeamImages.length;
-        changeImage(leftImage, leftImageContainer, leftTeamImages[currentLeftIndex], leftInfo, currentLeftIndex, leftTeamImages.length);
-    }
-});
-
-// Обработчики для правой команды
-rightPrevBtn.addEventListener('click', () => {
-    if (rightTeamImages.length > 0) {
-        currentRightIndex = (currentRightIndex - 1 + rightTeamImages.length) % rightTeamImages.length;
-        changeImage(rightImage, rightImageContainer, rightTeamImages[currentRightIndex], rightInfo, currentRightIndex, rightTeamImages.length);
-    }
-});
-
-rightNextBtn.addEventListener('click', () => {
-    if (rightTeamImages.length > 0) {
-        currentRightIndex = (currentRightIndex + 1) % rightTeamImages.length;
-        changeImage(rightImage, rightImageContainer, rightTeamImages[currentRightIndex], rightInfo, currentRightIndex, rightTeamImages.length);
-    }
-});
-
-// Обработчик кнопки сохранения
-saveButton.addEventListener('click', saveScreenshot);
-
-// Обработка клавиатуры
+// Обработка клавиатуры для быстрого доступа
 document.addEventListener('keydown', (event) => {
-    switch(event.key) {
-        case 'ArrowLeft':
-            leftPrevBtn.click();
-            break;
-        case 'ArrowRight':
-            leftNextBtn.click();
-            break;
-        case 'a':
-        case 'A':
-            leftPrevBtn.click();
-            break;
-        case 'd':
-        case 'D':
-            leftNextBtn.click();
-            break;
-        case 'ArrowUp':
-            rightPrevBtn.click();
-            break;
-        case 'ArrowDown':
-            rightNextBtn.click();
-            break;
-        case 'j':
-        case 'J':
-            rightPrevBtn.click();
-            break;
-        case 'l':
-        case 'L':
-            rightNextBtn.click();
-            break;
-        case 's':
-        case 'S':
-            saveButton.click();
-            break;
-    }
+    // Можно добавить горячие клавиши при необходимости
 });
-
-// Обработка свайпов
-let touchStartX = 0;
-let touchStartY = 0;
-
-document.addEventListener('touchstart', (event) => {
-    touchStartX = event.changedTouches[0].screenX;
-    touchStartY = event.changedTouches[0].screenY;
-});
-
-document.addEventListener('touchend', (event) => {
-    const touchEndX = event.changedTouches[0].screenX;
-    const touchEndY = event.changedTouches[0].screenY;
-    const diffX = touchEndX - touchStartX;
-    const diffY = touchEndY - touchStartY;
-
-    const touchX = event.changedTouches[0].clientX;
-    const screenWidth = window.innerWidth;
-
-    if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > 50) {
-        if (touchX < screenWidth / 2) {
-            if (diffX > 0) {
-                leftPrevBtn.click();
-            } else {
-                leftNextBtn.click();
-            }
-        } else {
-            if (diffX > 0) {
-                rightPrevBtn.click();
-            } else {
-                rightNextBtn.click();
-            }
-        }
-    }
-});
-
-// Виброотклик для кнопок навигации
-if (tg.isVibrationSupported) {
-    const buttons = document.querySelectorAll('.nav-button');
-    buttons.forEach(button => {
-        button.addEventListener('click', () => {
-            tg.HapticFeedback.impactOccurred('light');
-        });
-    });
-}
-
-// Инициализация
-loadInitialImages();
