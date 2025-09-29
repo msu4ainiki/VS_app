@@ -1,4 +1,3 @@
-
 const tg = window.Telegram.WebApp;
 tg.expand();
 tg.enableClosingConfirmation();
@@ -43,7 +42,6 @@ rightImageContainer.parentElement.appendChild(rightInfo);
 // Функция для проверки прозрачности и включения свечения
 function checkTransparencyAndAddGlow(imageElement, container) {
     // Для простоты предполагаем, что все PNG с прозрачностью имеют свечение
-    // В реальном проекте здесь была бы сложная логика анализа пикселей
     if (imageElement.src.includes('.png')) {
         container.classList.add('glow-effect');
     } else {
@@ -185,4 +183,3 @@ if (tg.isVibrationSupported) {
 
 // Инициализация
 loadInitialImages();
-                
