@@ -5,7 +5,7 @@
 }
 
 body {
-    background: #000;
+    background: #000000;
     color: #fff;
     font-family: 'Arial', sans-serif;
     height: 100vh;
@@ -22,7 +22,7 @@ body {
     display: flex;
     flex-direction: column;
     height: 100vh;
-    background: linear-gradient(135deg, #0a0a0a 0%, #000 100%);
+    background: #000000;
     padding: 10px;
     position: relative;
 }
@@ -62,6 +62,7 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    background: transparent;
 }
 
 .teams-row {
@@ -71,6 +72,7 @@ body {
     gap: 10px;
     position: relative;
     z-index: 2;
+    background: transparent;
 }
 
 .team {
@@ -81,6 +83,7 @@ body {
     flex: 1;
     height: 100%;
     position: relative;
+    background: transparent;
 }
 
 /* Контейнеры для эффектов */
@@ -92,6 +95,7 @@ body {
     height: 100%;
     pointer-events: none;
     z-index: 1;
+    background: transparent;
 }
 
 /* ЭФФЕКТ ПЛАМЕНИ для левой команды */
@@ -219,10 +223,12 @@ body {
 .image-container {
     width: 100%;
     aspect-ratio: 1;
-    overflow: hidden;
+    overflow: visible;
     position: relative;
     max-width: 45vw;
     z-index: 2;
+    background: transparent;
+    border: none;
 }
 
 /* Эффект свечения для изображений с прозрачностью */
@@ -237,18 +243,19 @@ body {
     z-index: 1;
     opacity: 0;
     transition: opacity 0.3s ease;
+    background: transparent;
 }
 
 /* ЛЕВАЯ КОМАНДА - КРАСНЫЙ */
 .left-team .image-container::before {
     box-shadow: 0 0 30px #ff0000, 0 0 50px #cc0000, 0 0 70px #990000;
-    background: linear-gradient(45deg, transparent 30%, rgba(255, 0, 0, 0.2) 100%);
+    background: transparent;
 }
 
 /* ПРАВАЯ КОМАНДА - СИНИЙ */
 .right-team .image-container::before {
     box-shadow: 0 0 30px #0066ff, 0 0 50px #0044cc, 0 0 70px #002299;
-    background: linear-gradient(45deg, transparent 30%, rgba(0, 102, 255, 0.2) 100%);
+    background: transparent;
 }
 
 .image-container.glow-effect::before {
@@ -259,7 +266,7 @@ body {
     width: 100%;
     height: 100%;
     object-fit: contain;
-    background: #111;
+    background: transparent;
     border-radius: 8px;
     position: relative;
     z-index: 2;
@@ -274,6 +281,7 @@ body {
     text-align: center;
     z-index: 2;
     position: relative;
+    background: transparent;
 }
 
 /* Цвета названий команд */
@@ -294,12 +302,14 @@ body {
     flex-direction: column;
     gap: 15px;
     z-index: 10;
+    background: transparent;
 }
 
 .team-controls {
     display: flex;
     justify-content: space-between;
     gap: 10px;
+    background: transparent;
 }
 
 .control-group {
@@ -308,6 +318,7 @@ body {
     gap: 10px;
     flex: 1;
     justify-content: center;
+    background: transparent;
 }
 
 .control-label {
@@ -316,12 +327,13 @@ body {
     font-weight: bold;
     min-width: 70px;
     text-align: center;
+    background: transparent;
 }
 
+/* КНОПКИ: красные слева, синие справа */
 .nav-button {
-    background: linear-gradient(45deg, #ff0000, #0066ff);
-    border: 2px solid transparent;
-    color: #fff;
+    border: none;
+    color: white;
     width: 45px;
     height: 45px;
     border-radius: 50%;
@@ -333,22 +345,34 @@ body {
     font-weight: bold;
 }
 
-.nav-button:hover {
+/* Красные кнопки для левой команды */
+#left-prev, #left-next {
+    background: #ff0000;
+    border: 2px solid #ff0000;
+}
+
+#left-prev:hover, #left-next:hover {
+    background: #cc0000;
+    border-color: #cc0000;
+    box-shadow: 0 0 15px #ff0000;
     transform: scale(1.1);
-    box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
+}
+
+/* Синие кнопки для правой команды */
+#right-prev, #right-next {
+    background: #0066ff;
+    border: 2px solid #0066ff;
+}
+
+#right-prev:hover, #right-next:hover {
+    background: #0044cc;
+    border-color: #0044cc;
+    box-shadow: 0 0 15px #0066ff;
+    transform: scale(1.1);
 }
 
 .nav-button:active {
     transform: scale(0.95);
-}
-
-/* Специфичные цвета для кнопок наведения */
-.left-team-controls .nav-button:hover {
-    box-shadow: 0 0 15px #ff0000;
-}
-
-.right-team-controls .nav-button:hover {
-    box-shadow: 0 0 15px #0066ff;
 }
 
 .vs-section {
@@ -357,6 +381,7 @@ body {
     justify-content: center;
     padding: 0 10px;
     z-index: 2;
+    background: transparent;
 }
 
 .vs-text {
@@ -365,6 +390,7 @@ body {
     color: #fff;
     text-shadow: 0 0 10px #ff0000, 0 0 20px #0066ff;
     animation: dualGlow 2s ease-in-out infinite alternate;
+    background: transparent;
 }
 
 @keyframes dualGlow {
@@ -481,4 +507,14 @@ body {
         font-size: 14px;
         width: 180px;
     }
+}
+
+/* Улучшенные эффекты для прозрачных PNG */
+.transparent-effects {
+    mix-blend-mode: screen;
+}
+
+/* Убедимся, что все элементы с прозрачностью работают правильно */
+.image-container, .participant-image, .flame-effect, .ice-effect {
+    mix-blend-mode: normal;
 }
