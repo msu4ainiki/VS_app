@@ -12,12 +12,6 @@ body {
     overflow: hidden;
 }
 
-.svg-filters {
-    position: absolute;
-    width: 0;
-    height: 0;
-}
-
 .container {
     display: flex;
     flex-direction: column;
@@ -67,180 +61,89 @@ body {
 
 .teams-row {
     display: flex;
-    align-items: stretch; /* Растягиваем элементы по высоте */
+    align-items: center;
     justify-content: space-between;
     gap: 10px;
     position: relative;
     z-index: 2;
     background: transparent;
-    height: 70vh; /* Статичная высота */
-    min-height: 400px; /* Минимальная высота */
+    height: 60vh;
+    min-height: 400px;
 }
 
 .team {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: space-between; /* Равномерное распределение */
+    justify-content: center;
     flex: 1;
     position: relative;
     background: transparent;
-    height: 100%; /* Занимает всю высоту родителя */
-}
-
-/* Контейнеры для эффектов */
-.flame-effect, .ice-effect {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
     height: 100%;
-    pointer-events: none;
-    z-index: 1;
-    background: transparent;
 }
 
-/* ЭФФЕКТ ПЛАМЕНИ для левой команды */
-.flame {
-    position: absolute;
-    border-radius: 50%;
-    background: radial-gradient(circle, #ff0000 0%, #cc0000 50%, transparent 70%);
-    animation: flameFloat 3s infinite ease-in-out;
-}
-
-.flame-1 {
-    width: 80px;
-    height: 120px;
-    top: 10%;
-    left: 20%;
-    animation-delay: 0s;
-    filter: url(#fireFilter);
-}
-
-.flame-2 {
-    width: 60px;
-    height: 90px;
-    top: 30%;
-    left: 60%;
-    animation-delay: 1s;
-    filter: url(#fireFilter);
-}
-
-.flame-3 {
-    width: 70px;
-    height: 100px;
-    top: 60%;
-    left: 30%;
-    animation-delay: 2s;
-    filter: url(#fireFilter);
-}
-
-@keyframes flameFloat {
-    0%, 100% {
-        transform: translateY(0) scale(1) rotate(0deg);
-        opacity: 0.7;
-    }
-    25% {
-        transform: translateY(-10px) scale(1.1) rotate(5deg);
-        opacity: 0.9;
-    }
-    50% {
-        transform: translateY(-5px) scale(0.9) rotate(-5deg);
-        opacity: 0.8;
-    }
-    75% {
-        transform: translateY(-15px) scale(1.2) rotate(3deg);
-        opacity: 0.6;
-    }
-}
-
-/* ЭФФЕКТ ЛЬДА для правой команды */
-.ice-crystal {
-    position: absolute;
-    background: linear-gradient(45deg, transparent 30%, #0066ff 50%, transparent 70%);
-    clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
-    animation: iceFloat 4s infinite ease-in-out;
-    filter: url(#iceFilter);
-}
-
-.crystal-1 {
-    width: 40px;
-    height: 40px;
-    top: 15%;
-    left: 70%;
-    animation-delay: 0s;
-}
-
-.crystal-2 {
-    width: 30px;
-    height: 30px;
-    top: 45%;
-    left: 20%;
-    animation-delay: 1.3s;
-}
-
-.crystal-3 {
-    width: 35px;
-    height: 35px;
-    top: 75%;
-    left: 60%;
-    animation-delay: 2.7s;
-}
-
-.frost {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: radial-gradient(circle at 30% 30%, transparent 50%, rgba(0, 102, 255, 0.1) 100%);
-    animation: frostPulse 5s infinite alternate;
-    filter: url(#iceFilter);
-}
-
-@keyframes iceFloat {
-    0%, 100% {
-        transform: translateY(0) rotate(0deg);
-        opacity: 0.6;
-    }
-    33% {
-        transform: translateY(-8px) rotate(120deg);
-        opacity: 0.8;
-    }
-    66% {
-        transform: translateY(-4px) rotate(240deg);
-        opacity: 0.7;
-    }
-}
-
-@keyframes frostPulse {
-    0% {
-        opacity: 0.1;
-    }
-    100% {
-        opacity: 0.3;
-    }
-}
-
-/* КОНТЕЙНЕРЫ ИЗОБРАЖЕНИЙ - БЕЗ СВЕЧЕНИЯ */
-.image-container {
-    width: 100%;
-    aspect-ratio: 1;
-    overflow: visible;
+/* Стек изображений с диагональным расположением */
+.images-stack {
     position: relative;
-    max-width: 45vw;
-    z-index: 2;
+    width: 100%;
+    height: 80%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.image-layer {
+    position: absolute;
+    width: 70%;
+    height: 70%;
+    overflow: visible;
     background: transparent;
     border: none;
     display: flex;
     align-items: center;
     justify-content: center;
-    flex: 1; /* Занимает доступное пространство */
 }
 
-/* УБИРАЕМ СВЕЧЕНИЕ ВОКРУГ КОНТЕЙНЕРОВ */
-.image-container::before {
-    display: none; /* Полностью убираем псевдоэлемент */
+/* Левая команда - диагональ сверху-слева вниз-вправо */
+.left-team .layer-1 {
+    top: 0;
+    left: 0;
+    z-index: 3;
+}
+
+.left-team .layer-2 {
+    top: 15%;
+    left: 10%;
+    z-index: 2;
+    transform: scale(0.9);
+}
+
+.left-team .layer-3 {
+    top: 30%;
+    left: 20%;
+    z-index: 1;
+    transform: scale(0.8);
+}
+
+/* Правая команда - диагональ сверху-справа вниз-влево */
+.right-team .layer-1 {
+    top: 0;
+    right: 0;
+    z-index: 3;
+}
+
+.right-team .layer-2 {
+    top: 15%;
+    right: 10%;
+    z-index: 2;
+    transform: scale(0.9);
+}
+
+.right-team .layer-3 {
+    top: 30%;
+    right: 20%;
+    z-index: 1;
+    transform: scale(0.8);
 }
 
 .participant-image {
@@ -253,7 +156,6 @@ body {
     z-index: 2;
 }
 
-/* ПОДПИСИ КОМАНД - ФИКСИРОВАННАЯ ВЫСОТА */
 .team-name {
     font-size: 16px;
     font-weight: bold;
@@ -263,12 +165,12 @@ body {
     z-index: 2;
     position: relative;
     background: transparent;
-    height: 40px; /* Фиксированная высота */
+    height: 40px;
     display: flex;
     align-items: center;
     justify-content: center;
     width: 100%;
-    margin-top: 10px;
+    margin-bottom: 10px;
 }
 
 /* Цвета названий команд */
@@ -286,24 +188,24 @@ body {
 .controls-panel {
     margin-top: 20px;
     display: flex;
-    flex-direction: column;
-    gap: 15px;
+    justify-content: space-between;
+    gap: 20px;
     z-index: 10;
     background: transparent;
 }
 
 .team-controls {
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
     gap: 10px;
     background: transparent;
+    flex: 1;
 }
 
-.control-group {
+.control-row {
     display: flex;
     align-items: center;
     gap: 10px;
-    flex: 1;
     justify-content: center;
     background: transparent;
 }
@@ -312,7 +214,7 @@ body {
     color: #fff;
     font-size: 14px;
     font-weight: bold;
-    min-width: 70px;
+    min-width: 80px;
     text-align: center;
     background: transparent;
 }
@@ -321,10 +223,10 @@ body {
 .nav-button {
     border: none;
     color: white;
-    width: 45px;
-    height: 45px;
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
-    font-size: 18px;
+    font-size: 16px;
     cursor: pointer;
     transition: all 0.3s ease;
     backdrop-filter: blur(10px);
@@ -333,12 +235,16 @@ body {
 }
 
 /* Красные кнопки для левой команды */
-#left-prev, #left-next {
+#left-prev-1, #left-next-1,
+#left-prev-2, #left-next-2,
+#left-prev-3, #left-next-3 {
     background: #ff0000;
     border: 2px solid #ff0000;
 }
 
-#left-prev:hover, #left-next:hover {
+#left-prev-1:hover, #left-next-1:hover,
+#left-prev-2:hover, #left-next-2:hover,
+#left-prev-3:hover, #left-next-3:hover {
     background: #cc0000;
     border-color: #cc0000;
     box-shadow: 0 0 15px #ff0000;
@@ -346,12 +252,16 @@ body {
 }
 
 /* Синие кнопки для правой команды */
-#right-prev, #right-next {
+#right-prev-1, #right-next-1,
+#right-prev-2, #right-next-2,
+#right-prev-3, #right-next-3 {
     background: #0066ff;
     border: 2px solid #0066ff;
 }
 
-#right-prev:hover, #right-next:hover {
+#right-prev-1:hover, #right-next-1:hover,
+#right-prev-2:hover, #right-next-2:hover,
+#right-prev-3:hover, #right-next-3:hover {
     background: #0044cc;
     border-color: #0044cc;
     box-shadow: 0 0 15px #0066ff;
@@ -416,6 +326,54 @@ body {
     transform: scale(0.95);
 }
 
+.save-button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* Модальное окно для плаката */
+.poster-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.95);
+    z-index: 10000;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.poster-modal.active {
+    display: flex;
+}
+
+.poster-image {
+    max-width: 90%;
+    max-height: 70%;
+    border: 2px solid white;
+    border-radius: 10px;
+    box-shadow: 0 0 30px rgba(255, 255, 255, 0.2);
+}
+
+.poster-instruction {
+    color: white;
+    text-align: center;
+    margin: 20px 0;
+    font-size: 16px;
+    line-height: 1.4;
+}
+
+.poster-buttons {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+
 @keyframes fadeIn {
     from {
         opacity: 0;
@@ -431,30 +389,6 @@ body {
     animation: fadeIn 0.3s ease-out;
 }
 
-.participant-info {
-    position: absolute;
-    top: 10px;
-    background: rgba(0, 0, 0, 0.7);
-    padding: 5px 10px;
-    border-radius: 15px;
-    font-size: 14px;
-    z-index: 3;
-}
-
-/* ЛЕВАЯ КОМАНДА - КРАСНЫЙ */
-.left-team .participant-info {
-    left: 10px;
-    border: 1px solid #ff0000;
-    color: #ff0000;
-}
-
-/* ПРАВАЯ КОМАНДА - СИНИЙ */
-.right-team .participant-info {
-    right: 10px;
-    border: 1px solid #0066ff;
-    color: #0066ff;
-}
-
 /* Адаптивность для очень маленьких экранов */
 @media (max-height: 700px) {
     .header-title h1 {
@@ -463,7 +397,7 @@ body {
     }
     
     .teams-row {
-        height: 60vh; /* Уменьшаем высоту на маленьких экранах */
+        height: 50vh;
         min-height: 350px;
     }
     
@@ -477,21 +411,18 @@ body {
     }
     
     .nav-button {
-        width: 40px;
-        height: 40px;
-        font-size: 16px;
+        width: 35px;
+        height: 35px;
+        font-size: 14px;
+    }
+    
+    .control-label {
+        font-size: 12px;
+        min-width: 70px;
     }
     
     .vs-text {
         font-size: 24px;
-    }
-    
-    .flame-1, .flame-2, .flame-3 {
-        transform: scale(0.7);
-    }
-    
-    .crystal-1, .crystal-2, .crystal-3 {
-        transform: scale(0.8);
     }
     
     .save-button {
@@ -499,14 +430,4 @@ body {
         font-size: 14px;
         width: 180px;
     }
-}
-
-/* Улучшенные эффекты для прозрачных PNG */
-.transparent-effects {
-    mix-blend-mode: screen;
-}
-
-/* Убедимся, что все элементы с прозрачностью работают правильно */
-.image-container, .participant-image, .flame-effect, .ice-effect {
-    mix-blend-mode: normal;
-}
+        }
