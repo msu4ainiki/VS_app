@@ -10,17 +10,9 @@ const skiers = imageConfig.skiers;
 let leftIndices = [0, 1, 2]; // Бегуны
 let rightIndices = [0, 1, 2]; // Лыжники
 
-// Функция для загрузки изображения
-function loadImage(imageElement, imageUrl) {
-    return new Promise((resolve, reject) => {
-        imageElement.onload = resolve;
-        imageElement.onerror = reject;
-        imageElement.src = imageUrl;
-    });
-}
-
-// Функция смены изображения с анимацией
+// Функция смены изображения с анимацией ТОЛЬКО для этого изображения
 function changeImage(imageElement, newSrc) {
+    // Добавляем анимацию только к этому конкретному изображению
     imageElement.classList.add('image-changing');
     imageElement.src = newSrc;
     
@@ -40,28 +32,34 @@ function changeImage(imageElement, newSrc) {
     };
 }
 
-// Функция обновления всех изображений
-function updateAllImages() {
-    // Обновляем бегунов
-    for (let i = 0; i < 3; i++) {
-        const imageElement = document.getElementById(`left-image-${i + 1}`);
-        if (imageElement && runners[leftIndices[i]]) {
-            changeImage(imageElement, runners[leftIndices[i]]);
-        }
-    }
+// Функция обновления конкретного изображения с анимацией
+function updateSingleImage(team, layerIndex) {
+    const imageElement = document.getElementById(`${team}-image-${layerIndex + 1}`);
+    if (!imageElement) return;
     
-    // Обновляем лыжников
-    for (let i = 0; i < 3; i++) {
-        const imageElement = document.getElementById(`right-image-${i + 1}`);
-        if (imageElement && skiers[rightIndices[i]]) {
-            changeImage(imageElement, skiers[rightIndices[i]]);
-        }
+    const array = team === 'left' ? runners : skiers;
+    const currentIndex = team === 'left' ? leftIndices[layerIndex] : rightIndices[layerIndex];
+    
+    if (array[currentIndex]) {
+        changeImage(imageElement, array[currentIndex]);
     }
 }
 
-// Инициализация изображений
+// Инициализация изображений (без анимации)
 function loadInitialImages() {
-    updateAllImages();
+    // Загружаем все изображения без анимации
+    for (let i = 0; i < 3; i++) {
+        const leftImage = document.getElementById(`left-image-${i + 1}`);
+        const rightImage = document.getElementById(`right-image-${i + 1}`);
+        
+        if (leftImage && runners[leftIndices[i]]) {
+            leftImage.src = runners[leftIndices[i]];
+        }
+        
+        if (rightImage && skiers[rightIndices[i]]) {
+            rightImage.src = skiers[rightIndices[i]];
+        }
+    }
 }
 
 // Создание обработчиков для кнопок
@@ -74,12 +72,14 @@ function setupEventListeners() {
         if (prevBtn && nextBtn) {
             prevBtn.addEventListener('click', () => {
                 leftIndices[i] = (leftIndices[i] - 1 + runners.length) % runners.length;
-                updateAllImages();
+                // Обновляем только это конкретное изображение
+                updateSingleImage('left', i);
             });
             
             nextBtn.addEventListener('click', () => {
                 leftIndices[i] = (leftIndices[i] + 1) % runners.length;
-                updateAllImages();
+                // Обновляем только это конкретное изображение
+                updateSingleImage('left', i);
             });
         }
     }
@@ -92,12 +92,14 @@ function setupEventListeners() {
         if (prevBtn && nextBtn) {
             prevBtn.addEventListener('click', () => {
                 rightIndices[i] = (rightIndices[i] - 1 + skiers.length) % skiers.length;
-                updateAllImages();
+                // Обновляем только это конкретное изображение
+                updateSingleImage('right', i);
             });
             
             nextBtn.addEventListener('click', () => {
                 rightIndices[i] = (rightIndices[i] + 1) % skiers.length;
-                updateAllImages();
+                // Обновляем только это конкретное изображение
+                updateSingleImage('right', i);
             });
         }
     }
