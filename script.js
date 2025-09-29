@@ -1,4 +1,3 @@
-// Подключаем конфигурацию изображений
 const tg = window.Telegram.WebApp;
 tg.expand();
 tg.enableClosingConfirmation();
@@ -19,6 +18,7 @@ const leftPrevBtn = document.getElementById('left-prev');
 const leftNextBtn = document.getElementById('left-next');
 const rightPrevBtn = document.getElementById('right-prev');
 const rightNextBtn = document.getElementById('right-next');
+const saveButton = document.getElementById('save-button');
 
 // Создаем индикаторы
 const leftInfo = document.createElement('div');
@@ -62,6 +62,48 @@ function changeImage(imageElement, container, newSrc, infoElement, currentIndex,
             imageElement.classList.remove('image-changing');
         }, 300);
     };
+}
+
+// Функция для создания и сохранения скриншота
+function saveScreenshot() {
+    const screenshotArea = document.getElementById('screenshot-area');
+    
+    // Показываем индикатор загрузки
+    saveButton.textContent = '📸 Сохраняем...';
+    saveButton.disabled = true;
+    
+    // Создаем скриншот
+    html2canvas(screenshotArea, {
+        backgroundColor: '#000000',
+        scale: 2, // Увеличиваем качество в 2 раза
+        useCORS: true, // Разрешаем CORS для изображений
+        allowTaint: true,
+        logging: false
+    }).then(canvas => {
+        // Создаем ссылку для скачивания
+        const link = document.createElement('a');
+        link.download = `бегуны-против-лыжников-${Date.now()}.png`;
+        link.href = canvas.toDataURL('image/png', 1.0);
+        link.click();
+        
+        // Восстанавливаем кнопку
+        saveButton.textContent = '💾 Сохранить';
+        saveButton.disabled = false;
+        
+        // Виброотклик при успешном сохранении
+        if (tg.isVibrationSupported) {
+            tg.HapticFeedback.impactOccurred('medium');
+        }
+    }).catch(error => {
+        console.error('Ошибка при создании скриншота:', error);
+        saveButton.textContent = '💾 Сохранить';
+        saveButton.disabled = false;
+        
+        // Виброотклик при ошибке
+        if (tg.isVibrationSupported) {
+            tg.HapticFeedback.impactOccurred('error');
+        }
+    });
 }
 
 // Загрузка первых изображений
@@ -111,6 +153,9 @@ rightNextBtn.addEventListener('click', () => {
     }
 });
 
+// Обработчик кнопки сохранения
+saveButton.addEventListener('click', saveScreenshot);
+
 // Обработка клавиатуры
 document.addEventListener('keydown', (event) => {
     switch(event.key) {
@@ -141,6 +186,10 @@ document.addEventListener('keydown', (event) => {
         case 'l':
         case 'L':
             rightNextBtn.click();
+            break;
+        case 's':
+        case 'S':
+            saveButton.click();
             break;
     }
 });
@@ -180,7 +229,7 @@ document.addEventListener('touchend', (event) => {
     }
 });
 
-// Виброотклик
+// Виброотклик для кнопок навигации
 if (tg.isVibrationSupported) {
     const buttons = document.querySelectorAll('.nav-button');
     buttons.forEach(button => {
