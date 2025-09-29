@@ -20,6 +20,33 @@ body {
     padding: 10px;
 }
 
+/* Заголовок */
+.header-title {
+    text-align: center;
+    padding: 15px 0;
+    margin-bottom: 10px;
+}
+
+.header-title h1 {
+    font-size: 24px;
+    font-weight: bold;
+    background: linear-gradient(45deg, #ff0000, #0066ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-shadow: 0 0 20px rgba(255, 0, 0, 0.5), 0 0 20px rgba(0, 102, 255, 0.5);
+    animation: titleGlow 2s ease-in-out infinite alternate;
+}
+
+@keyframes titleGlow {
+    from {
+        text-shadow: 0 0 10px rgba(255, 0, 0, 0.5), 0 0 10px rgba(0, 102, 255, 0.5);
+    }
+    to {
+        text-shadow: 0 0 20px rgba(255, 0, 0, 0.8), 0 0 30px rgba(0, 102, 255, 0.8), 0 0 40px rgba(255, 0, 0, 0.6);
+    }
+}
+
 .teams-row {
     display: flex;
     flex: 1;
@@ -147,73 +174,4 @@ body {
     font-weight: bold;
     color: #ff0000;
     text-shadow: 0 0 20px #ff0000;
-    animation: glow 2s ease-in-out infinite alternate;
-}
-
-@keyframes glow {
-    from {
-        text-shadow: 0 0 10px #ff0000;
-    }
-    to {
-        text-shadow: 0 0 20px #ff0000, 0 0 30px #ff3333;
-    }
-}
-
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: scale(0.95);
-    }
-    to {
-        opacity: 1;
-        transform: scale(1);
-    }
-}
-
-.image-changing {
-    animation: fadeIn 0.3s ease-out;
-}
-
-.participant-info {
-    position: absolute;
-    top: 10px;
-    background: rgba(0, 0, 0, 0.7);
-    padding: 5px 10px;
-    border-radius: 15px;
-    font-size: 14px;
-    z-index: 3;
-}
-
-/* ЛЕВАЯ КОМАНДА - КРАСНЫЙ */
-.left-team .participant-info {
-    left: 10px;
-    border: 1px solid #ff0000;
-}
-
-/* ПРАВАЯ КОМАНДА - СИНИЙ */
-.right-team .participant-info {
-    right: 10px;
-    border: 1px solid #0066ff;
-}
-
-/* Адаптивность для очень маленьких экранов */
-@media (max-height: 700px) {
-    .team-name {
-        font-size: 14px;
-        margin-top: 10px;
-    }
-    
-    .controls {
-        margin-top: 10px;
-    }
-    
-    .nav-button {
-        width: 40px;
-        height: 40px;
-        font-size: 16px;
-    }
-    
-    .vs-text {
-        font-size: 24px;
-    }
-}
+    animation: glow 2s ease-in-out infinite alternate
