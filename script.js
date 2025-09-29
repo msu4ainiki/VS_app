@@ -5,7 +5,7 @@ tg.enableClosingConfirmation();
 // ЗАМЕНИТЕ ССЫЛКИ НА ВАШИ ИЗОБРАЖЕНИЯ!
 const leftTeamImages = [
     'https://disk.yandex.ru/i/tyvL_ZAMsfVJdQ', // PNG с прозрачностью
-    'https://disk.yandex.ru/i/lhIcNLu7VOIxMg',
+    'https://www.mortalkombatwarehouse.com/mk3/screenshots/03.png',
     'https://downloader.disk.yandex.ru/preview/aaae4a6267a6936ff454352f40e2019187fcaa7ca3663eb5db4c7e1d486af008/68da3268/ur7gGOcVd1KdbK4R9CA6d_fV0hdqEO2wYfyZV77TUkZvZlvDtZ2bhMmlu4NHnd8yUfVFkvoX0DJAEHG3iEINPg%3D%3D?uid=0&filename=Screenshot_20250928-234623~3.png&disposition=inline&hash=&limit=0&content_type=image%2Fjpeg&owner_uid=0&tknv=v3&size=XXXL&crop=0'
 ];
 
