@@ -5,48 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Беговой Турнир</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
-    <!-- Подключаем html2canvas для создания скриншотов -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- SVG фильтры для эффектов -->
-    <svg xmlns="http://www.w3.org/2000/svg" version="1.1" class="svg-filters">
-        <defs>
-            <!-- Фильтр для эффекта пламени -->
-            <filter id="fireFilter" x="-50%" y="-50%" width="200%" height="200%">
-                <feTurbulence type="fractalNoise" baseFrequency="0.01 0.02" numOctaves="2" result="turbulence"/>
-                <feDisplacementMap in="SourceGraphic" in2="turbulence" scale="10" xChannelSelector="R" yChannelSelector="G"/>
-                <feGaussianBlur stdDeviation="2" result="blur"/>
-                <feColorMatrix type="matrix" values="
-                    1 0 0 0 0
-                    0.3 0.6 0 0 0
-                    0 0.1 0.2 0 0
-                    0 0 0 1 0" result="fireColor"/>
-                <feMerge>
-                    <feMergeNode in="fireColor"/>
-                    <feMergeNode in="SourceGraphic"/>
-                </feMerge>
-            </filter>
-            
-            <!-- Фильтр для эффекта льда -->
-            <filter id="iceFilter" x="-50%" y="-50%" width="200%" height="200%">
-                <feTurbulence type="fractalNoise" baseFrequency="0.01 0.015" numOctaves="3" result="turbulence"/>
-                <feDisplacementMap in="SourceGraphic" in2="turbulence" scale="8" xChannelSelector="R" yChannelSelector="G"/>
-                <feGaussianBlur stdDeviation="1.5" result="blur"/>
-                <feColorMatrix type="matrix" values="
-                    0.4 0.6 1 0 0
-                    0.2 0.4 1 0 0
-                    0.6 0.8 1 0 0
-                    0 0 0 1 0" result="iceColor"/>
-                <feMerge>
-                    <feMergeNode in="iceColor"/>
-                    <feMergeNode in="SourceGraphic"/>
-                </feMerge>
-            </filter>
-        </defs>
-    </svg>
-
     <div class="container">
         <!-- Заголовок -->
         <div class="header-title">
@@ -56,19 +18,20 @@
         <!-- Область для скриншота -->
         <div id="screenshot-area" class="screenshot-area">
             <div class="teams-row">
-                <!-- Левая команда с эффектом пламени -->
+                <!-- Левая команда - Бегуны -->
                 <div class="team left-team">
-                    <!-- Эффект пламени -->
-                    <div class="flame-effect">
-                        <div class="flame flame-1"></div>
-                        <div class="flame flame-2"></div>
-                        <div class="flame flame-3"></div>
-                    </div>
-                    
-                    <div class="image-container">
-                        <img id="left-image" src="" alt="Бегун" class="participant-image">
-                    </div>
                     <div class="team-name">БЕГУНЫ</div>
+                    <div class="images-stack">
+                        <div class="image-layer layer-1">
+                            <img id="left-image-1" src="" alt="Бегун 1" class="participant-image">
+                        </div>
+                        <div class="image-layer layer-2">
+                            <img id="left-image-2" src="" alt="Бегун 2" class="participant-image">
+                        </div>
+                        <div class="image-layer layer-3">
+                            <img id="left-image-3" src="" alt="Бегун 3" class="participant-image">
+                        </div>
+                    </div>
                 </div>
 
                 <!-- VS разделитель -->
@@ -76,44 +39,81 @@
                     <div class="vs-text">VS</div>
                 </div>
 
-                <!-- Правая команда с эффектом льда -->
+                <!-- Правая команда - Лыжники -->
                 <div class="team right-team">
-                    <!-- Эффект льда -->
-                    <div class="ice-effect">
-                        <div class="ice-crystal crystal-1"></div>
-                        <div class="ice-crystal crystal-2"></div>
-                        <div class="ice-crystal crystal-3"></div>
-                        <div class="frost"></div>
-                    </div>
-                    
-                    <div class="image-container">
-                        <img id="right-image" src="" alt="Лыжник" class="participant-image">
-                    </div>
                     <div class="team-name">ЛЫЖНИКИ</div>
+                    <div class="images-stack">
+                        <div class="image-layer layer-1">
+                            <img id="right-image-1" src="" alt="Лыжник 1" class="participant-image">
+                        </div>
+                        <div class="image-layer layer-2">
+                            <img id="right-image-2" src="" alt="Лыжник 2" class="participant-image">
+                        </div>
+                        <div class="image-layer layer-3">
+                            <img id="right-image-3" src="" alt="Лыжник 3" class="participant-image">
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
 
         <!-- Панель управления -->
         <div class="controls-panel">
-            <div class="team-controls">
-                <div class="control-group">
-                    <button id="left-prev" class="nav-button">◀</button>
-                    <span class="control-label">Бегуны</span>
-                    <button id="left-next" class="nav-button">▶</button>
+            <!-- Управление бегунами -->
+            <div class="team-controls left-controls">
+                <div class="control-row">
+                    <span class="control-label">Бегун 1</span>
+                    <button id="left-prev-1" class="nav-button">◀</button>
+                    <button id="left-next-1" class="nav-button">▶</button>
                 </div>
-                
-                <div class="control-group">
-                    <button id="right-prev" class="nav-button">◀</button>
-                    <span class="control-label">Лыжники</span>
-                    <button id="right-next" class="nav-button">▶</button>
+                <div class="control-row">
+                    <span class="control-label">Бегун 2</span>
+                    <button id="left-prev-2" class="nav-button">◀</button>
+                    <button id="left-next-2" class="nav-button">▶</button>
+                </div>
+                <div class="control-row">
+                    <span class="control-label">Бегун 3</span>
+                    <button id="left-prev-3" class="nav-button">◀</button>
+                    <button id="left-next-3" class="nav-button">▶</button>
                 </div>
             </div>
-            
-            <!-- Кнопка сохранения -->
-            <button id="save-button" class="save-button">
-                💾 Сохранить
-            </button>
+
+            <!-- Управление лыжниками -->
+            <div class="team-controls right-controls">
+                <div class="control-row">
+                    <span class="control-label">Лыжник 1</span>
+                    <button id="right-prev-1" class="nav-button">◀</button>
+                    <button id="right-next-1" class="nav-button">▶</button>
+                </div>
+                <div class="control-row">
+                    <span class="control-label">Лыжник 2</span>
+                    <button id="right-prev-2" class="nav-button">◀</button>
+                    <button id="right-next-2" class="nav-button">▶</button>
+                </div>
+                <div class="control-row">
+                    <span class="control-label">Лыжник 3</span>
+                    <button id="right-prev-3" class="nav-button">◀</button>
+                    <button id="right-next-3" class="nav-button">▶</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Кнопка создания плаката -->
+        <button id="create-poster" class="save-button">🖼️ Создать плакат</button>
+    </div>
+
+    <!-- Модальное окно для плаката -->
+    <div id="poster-modal" class="poster-modal">
+        <img id="poster-result" class="poster-image" alt="Плакат Бегуны против Лыжников">
+        <div class="poster-instruction">
+            💡 Для сохранения плаката:<br>
+            - Нажмите и удерживайте изображение<br>
+            - Выберите "Сохранить изображение"<br>
+            - Или сделайте скриншот экрана
+        </div>
+        <div class="poster-buttons">
+            <button id="close-poster" class="nav-button">Закрыть</button>
+            <button id="share-poster" class="nav-button">Поделиться</button>
         </div>
     </div>
 
