@@ -60,14 +60,16 @@ body {
     transition: opacity 0.3s ease;
 }
 
+/* ЛЕВАЯ КОМАНДА - КРАСНЫЙ */
 .left-team .image-container::before {
-    box-shadow: 0 0 20px #0066ff, 0 0 40px #0066ff, 0 0 60px #0066ff;
-    background: linear-gradient(45deg, transparent 30%, rgba(0, 102, 255, 0.1) 100%);
-}
-
-.right-team .image-container::before {
     box-shadow: 0 0 20px #ff0000, 0 0 40px #ff0000, 0 0 60px #ff0000;
     background: linear-gradient(45deg, transparent 30%, rgba(255, 0, 0, 0.1) 100%);
+}
+
+/* ПРАВАЯ КОМАНДА - СИНИЙ */
+.right-team .image-container::before {
+    box-shadow: 0 0 20px #0066ff, 0 0 40px #0066ff, 0 0 60px #0066ff;
+    background: linear-gradient(45deg, transparent 30%, rgba(0, 102, 255, 0.1) 100%);
 }
 
 .image-container.glow-effect::before {
@@ -119,12 +121,14 @@ body {
     transform: scale(1.1);
 }
 
+/* ЛЕВАЯ КОМАНДА - КРАСНЫЙ */
 .left-team .nav-button:hover {
-    box-shadow: 0 0 15px #0066ff;
+    box-shadow: 0 0 15px #ff0000;
 }
 
+/* ПРАВАЯ КОМАНДА - СИНИЙ */
 .right-team .nav-button:hover {
-    box-shadow: 0 0 15px #ff0000;
+    box-shadow: 0 0 15px #0066ff;
 }
 
 .nav-button:active {
@@ -180,14 +184,16 @@ body {
     z-index: 3;
 }
 
+/* ЛЕВАЯ КОМАНДА - КРАСНЫЙ */
 .left-team .participant-info {
     left: 10px;
-    border: 1px solid #0066ff;
+    border: 1px solid #ff0000;
 }
 
+/* ПРАВАЯ КОМАНДА - СИНИЙ */
 .right-team .participant-info {
     right: 10px;
-    border: 1px solid #ff0000;
+    border: 1px solid #0066ff;
 }
 
 /* Адаптивность для очень маленьких экранов */
