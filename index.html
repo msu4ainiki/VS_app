@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Беговой Турнир</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <!-- Подключаем html2canvas для создания скриншотов -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -18,8 +20,8 @@
                 <feGaussianBlur stdDeviation="2" result="blur"/>
                 <feColorMatrix type="matrix" values="
                     1 0 0 0 0
-                    0.5 0.8 0 0 0
-                    0 0.2 0.3 0 0
+                    0.3 0.6 0 0 0
+                    0 0.1 0.2 0 0
                     0 0 0 1 0" result="fireColor"/>
                 <feMerge>
                     <feMergeNode in="fireColor"/>
@@ -33,9 +35,9 @@
                 <feDisplacementMap in="SourceGraphic" in2="turbulence" scale="8" xChannelSelector="R" yChannelSelector="G"/>
                 <feGaussianBlur stdDeviation="1.5" result="blur"/>
                 <feColorMatrix type="matrix" values="
+                    0.4 0.6 1 0 0
+                    0.2 0.4 1 0 0
                     0.6 0.8 1 0 0
-                    0.3 0.6 1 0 0
-                    0.8 0.9 1 0 0
                     0 0 0 1 0" result="iceColor"/>
                 <feMerge>
                     <feMergeNode in="iceColor"/>
@@ -51,55 +53,72 @@
             <h1>Бегуны против Лыжников</h1>
         </div>
 
-        <div class="teams-row">
-            <!-- Левая команда с эффектом пламени -->
-            <div class="team left-team">
-                <!-- Эффект пламени -->
-                <div class="flame-effect">
-                    <div class="flame flame-1"></div>
-                    <div class="flame flame-2"></div>
-                    <div class="flame flame-3"></div>
+        <!-- Область для скриншота -->
+        <div id="screenshot-area" class="screenshot-area">
+            <div class="teams-row">
+                <!-- Левая команда с эффектом пламени -->
+                <div class="team left-team">
+                    <!-- Эффект пламени -->
+                    <div class="flame-effect">
+                        <div class="flame flame-1"></div>
+                        <div class="flame flame-2"></div>
+                        <div class="flame flame-3"></div>
+                    </div>
+                    
+                    <div class="image-container">
+                        <img id="left-image" src="" alt="Бегун" class="participant-image">
+                    </div>
+                    <div class="team-name">БЕГУНЫ</div>
                 </div>
-                
-                <div class="image-container">
-                    <img id="left-image" src="" alt="Бегун" class="participant-image">
-                </div>
-                <div class="team-name">БЕГУНЫ</div>
-                <div class="controls">
-                    <button id="left-prev" class="nav-button">◀</button>
-                    <button id="left-next" class="nav-button">▶</button>
-                </div>
-            </div>
 
-            <!-- VS разделитель -->
-            <div class="vs-section">
-                <div class="vs-text">VS</div>
-            </div>
+                <!-- VS разделитель -->
+                <div class="vs-section">
+                    <div class="vs-text">VS</div>
+                </div>
 
-            <!-- Правая команда с эффектом льда -->
-            <div class="team right-team">
-                <!-- Эффект льда -->
-                <div class="ice-effect">
-                    <div class="ice-crystal crystal-1"></div>
-                    <div class="ice-crystal crystal-2"></div>
-                    <div class="ice-crystal crystal-3"></div>
-                    <div class="frost"></div>
-                </div>
-                
-                <div class="image-container">
-                    <img id="right-image" src="" alt="Лыжник" class="participant-image">
-                </div>
-                <div class="team-name">ЛЫЖНИКИ</div>
-                <div class="controls">
-                    <button id="right-prev" class="nav-button">◀</button>
-                    <button id="right-next" class="nav-button">▶</button>
+                <!-- Правая команда с эффектом льда -->
+                <div class="team right-team">
+                    <!-- Эффект льда -->
+                    <div class="ice-effect">
+                        <div class="ice-crystal crystal-1"></div>
+                        <div class="ice-crystal crystal-2"></div>
+                        <div class="ice-crystal crystal-3"></div>
+                        <div class="frost"></div>
+                    </div>
+                    
+                    <div class="image-container">
+                        <img id="right-image" src="" alt="Лыжник" class="participant-image">
+                    </div>
+                    <div class="team-name">ЛЫЖНИКИ</div>
                 </div>
             </div>
         </div>
+
+        <!-- Панель управления -->
+        <div class="controls-panel">
+            <div class="team-controls">
+                <div class="control-group">
+                    <button id="left-prev" class="nav-button">◀</button>
+                    <span class="control-label">Бегуны</span>
+                    <button id="left-next" class="nav-button">▶</button>
+                </div>
+                
+                <div class="control-group">
+                    <button id="right-prev" class="nav-button">◀</button>
+                    <span class="control-label">Лыжники</span>
+                    <button id="right-next" class="nav-button">▶</button>
+                </div>
+            </div>
+            
+            <!-- Кнопка сохранения -->
+            <button id="save-button" class="save-button">
+                💾 Сохранить
+            </button>
+        </div>
     </div>
 
-    <!-- Подключаем сначала конфиг, потом основной скрипт -->
+    <!-- Подключаем конфиг и основной скрипт -->
     <script src="config.js"></script>
     <script src="script.js"></script>
 </body>
-    </html>
+</html>
