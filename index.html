@@ -8,6 +8,43 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <!-- SVG фильтры для эффектов -->
+    <svg xmlns="http://www.w3.org/2000/svg" version="1.1" class="svg-filters">
+        <defs>
+            <!-- Фильтр для эффекта пламени -->
+            <filter id="fireFilter" x="-50%" y="-50%" width="200%" height="200%">
+                <feTurbulence type="fractalNoise" baseFrequency="0.01 0.02" numOctaves="2" result="turbulence"/>
+                <feDisplacementMap in="SourceGraphic" in2="turbulence" scale="10" xChannelSelector="R" yChannelSelector="G"/>
+                <feGaussianBlur stdDeviation="2" result="blur"/>
+                <feColorMatrix type="matrix" values="
+                    1 0 0 0 0
+                    0.5 0.8 0 0 0
+                    0 0.2 0.3 0 0
+                    0 0 0 1 0" result="fireColor"/>
+                <feMerge>
+                    <feMergeNode in="fireColor"/>
+                    <feMergeNode in="SourceGraphic"/>
+                </feMerge>
+            </filter>
+            
+            <!-- Фильтр для эффекта льда -->
+            <filter id="iceFilter" x="-50%" y="-50%" width="200%" height="200%">
+                <feTurbulence type="fractalNoise" baseFrequency="0.01 0.015" numOctaves="3" result="turbulence"/>
+                <feDisplacementMap in="SourceGraphic" in2="turbulence" scale="8" xChannelSelector="R" yChannelSelector="G"/>
+                <feGaussianBlur stdDeviation="1.5" result="blur"/>
+                <feColorMatrix type="matrix" values="
+                    0.6 0.8 1 0 0
+                    0.3 0.6 1 0 0
+                    0.8 0.9 1 0 0
+                    0 0 0 1 0" result="iceColor"/>
+                <feMerge>
+                    <feMergeNode in="iceColor"/>
+                    <feMergeNode in="SourceGraphic"/>
+                </feMerge>
+            </filter>
+        </defs>
+    </svg>
+
     <div class="container">
         <!-- Заголовок -->
         <div class="header-title">
@@ -15,10 +52,17 @@
         </div>
 
         <div class="teams-row">
-            <!-- Левая команда -->
+            <!-- Левая команда с эффектом пламени -->
             <div class="team left-team">
+                <!-- Эффект пламени -->
+                <div class="flame-effect">
+                    <div class="flame flame-1"></div>
+                    <div class="flame flame-2"></div>
+                    <div class="flame flame-3"></div>
+                </div>
+                
                 <div class="image-container">
-                    <img id="left-image" src="https://example.com/left-participant-1.png" alt="Бегун" class="participant-image">
+                    <img id="left-image" src="" alt="Бегун" class="participant-image">
                 </div>
                 <div class="team-name">БЕГУНЫ</div>
                 <div class="controls">
@@ -32,10 +76,18 @@
                 <div class="vs-text">VS</div>
             </div>
 
-            <!-- Правая команда -->
+            <!-- Правая команда с эффектом льда -->
             <div class="team right-team">
+                <!-- Эффект льда -->
+                <div class="ice-effect">
+                    <div class="ice-crystal crystal-1"></div>
+                    <div class="ice-crystal crystal-2"></div>
+                    <div class="ice-crystal crystal-3"></div>
+                    <div class="frost"></div>
+                </div>
+                
                 <div class="image-container">
-                    <img id="right-image" src="https://example.com/right-participant-1.png" alt="Лыжник" class="participant-image">
+                    <img id="right-image" src="" alt="Лыжник" class="participant-image">
                 </div>
                 <div class="team-name">ЛЫЖНИКИ</div>
                 <div class="controls">
@@ -46,6 +98,8 @@
         </div>
     </div>
 
+    <!-- Подключаем сначала конфиг, потом основной скрипт -->
+    <script src="config.js"></script>
     <script src="script.js"></script>
 </body>
-</html>
+    </html>
