@@ -5,7 +5,7 @@ tg.enableClosingConfirmation();
 
 // ЗАМЕНИТЕ ССЫЛКИ НА ВАШИ ИЗОБРАЖЕНИЯ!
 const leftTeamImages = [
-    'https://github.com/msu4ainiki/VS_app/blob/e7fd86cc1146b76170c35fe2e8078f61e700b739/img/Screenshot_20250928-234623~3.png', // PNG с прозрачностью
+    'https://raw.githubusercontent.com/msu4ainiki/VS_app/refs/heads/main/img/Screenshot_20250928-234623%7E3.png', // PNG с прозрачностью
     'https://www.mortalkombatwarehouse.com/mk3/screenshots/03.png',
     'https://downloader.disk.yandex.ru/preview/aaae4a6267a6936ff454352f40e2019187fcaa7ca3663eb5db4c7e1d486af008/68da3268/ur7gGOcVd1KdbK4R9CA6d_fV0hdqEO2wYfyZV77TUkZvZlvDtZ2bhMmlu4NHnd8yUfVFkvoX0DJAEHG3iEINPg%3D%3D?uid=0&filename=Screenshot_20250928-234623~3.png&disposition=inline&hash=&limit=0&content_type=image%2Fjpeg&owner_uid=0&tknv=v3&size=XXXL&crop=0'
 ];
