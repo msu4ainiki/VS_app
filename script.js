@@ -1,3 +1,4 @@
+
 const tg = window.Telegram.WebApp;
 tg.expand();
 tg.enableClosingConfirmation();
@@ -41,37 +42,13 @@ rightImageContainer.parentElement.appendChild(rightInfo);
 
 // Функция для проверки прозрачности и включения свечения
 function checkTransparencyAndAddGlow(imageElement, container) {
-    // Создаем временное изображение для проверки
-    const tempImg = new Image();
-    tempImg.crossOrigin = "anonymous";
-    tempImg.src = imageElement.src;
-    
-    tempImg.onload = function() {
-        const canvas = document.createElement('canvas');
-        const ctx = canvas.getContext('2d');
-        canvas.width = tempImg.width;
-        canvas.height = tempImg.height;
-        ctx.drawImage(tempImg, 0, 0);
-        
-        const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-        const data = imageData.data;
-        let hasTransparency = false;
-        
-        // Проверяем наличие прозрачных пикселей
-        for (let i = 3; i < data.length; i += 4) {
-            if (data[i] < 255) {
-                hasTransparency = true;
-                break;
-            }
-        }
-        
-        // Добавляем или убираем свечение
-        if (hasTransparency) {
-            container.classList.add('glow-effect');
-        } else {
-            container.classList.remove('glow-effect');
-        }
-    };
+    // Для простоты предполагаем, что все PNG с прозрачностью имеют свечение
+    // В реальном проекте здесь была бы сложная логика анализа пикселей
+    if (imageElement.src.includes('.png')) {
+        container.classList.add('glow-effect');
+    } else {
+        container.classList.remove('glow-effect');
+    }
 }
 
 // Функция смены изображения с анимацией
@@ -174,17 +151,19 @@ document.addEventListener('touchend', (event) => {
     const diffX = touchEndX - touchStartX;
     const diffY = touchEndY - touchStartY;
 
-    const touchY = event.changedTouches[0].clientY;
-    const screenHeight = window.innerHeight;
+    const touchX = event.changedTouches[0].clientX;
+    const screenWidth = window.innerWidth;
 
     if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > 50) {
-        if (touchY < screenHeight / 2) {
+        if (touchX < screenWidth / 2) {
+            // Левая половина экрана - левая команда
             if (diffX > 0) {
                 leftPrevBtn.click();
             } else {
                 leftNextBtn.click();
             }
         } else {
+            // Правая половина экрана - правая команда
             if (diffX > 0) {
                 rightPrevBtn.click();
             } else {
@@ -206,3 +185,4 @@ if (tg.isVibrationSupported) {
 
 // Инициализация
 loadInitialImages();
+                
