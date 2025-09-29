@@ -3,14 +3,14 @@
 
 const imageConfig = {
     // Изображения для левой команды (Бегуны)
-    leftTeamImages: [
+    runners: [
     'https://github.com/msu4ainiki/VS_app/raw/refs/heads/main/img/Screenshot_20250928-234623~3.png', // PNG с прозрачностью
     'https://github.com/msu4ainiki/VS_app/raw/refs/heads/main/img/1759151720282.png',
     'https://github.com/msu4ainiki/VS_app/raw/refs/heads/main/img/1759160744779.png'
 ],
     
     // Изображения для правой команды (Лыжники)
-    rightTeamImages: [
+    skiers: [
     'https://raw.githubusercontent.com/msu4ainiki/VS_app/b78a29d593a1bc549fb58a527fe78b9a3383d384/img/Screenshot_20250928-234623%7E4.png', // PNG с прозрачностью
     'https://github.com/msu4ainiki/VS_app/raw/refs/heads/main/img/1759160143809_copy_504x489.png',
     'https://github.com/msu4ainiki/VS_app/raw/refs/heads/main/img/1759143592630.png',
