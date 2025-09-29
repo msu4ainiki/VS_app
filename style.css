@@ -108,7 +108,7 @@ body {
 .left-team .layer-1 {
     top: 0;
     left: 0;
-    z-index: 3;
+    z-index: 1;
 }
 
 .left-team .layer-2 {
@@ -121,7 +121,7 @@ body {
 .left-team .layer-3 {
     top: 30%;
     left: 20%;
-    z-index: 1;
+    z-index: 3;
     transform: scale(0.8);
 }
 
@@ -129,7 +129,7 @@ body {
 .right-team .layer-1 {
     top: 0;
     right: 0;
-    z-index: 3;
+    z-index: 1;
 }
 
 .right-team .layer-2 {
@@ -142,7 +142,7 @@ body {
 .right-team .layer-3 {
     top: 30%;
     right: 20%;
-    z-index: 1;
+    z-index: 3;
     transform: scale(0.8);
 }
 
