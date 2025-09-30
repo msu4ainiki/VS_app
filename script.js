@@ -13,20 +13,22 @@ let rightIndices = [0, 1, 2]; // Лыжники
 
 // Функция для загрузки логотипа
 function loadLogo() {
-    const logoElement = document.querySelector('.logo-image');
-    if (logoElement && logoUrl) {
-        console.log('Загружаем логотип:', logoUrl);
-        logoElement.src = logoUrl;
-        logoElement.onload = function() {
-            console.log('Логотип загружен');
+    const centerLogoElement = document.querySelector('.center-logo-image');
+    if (centerLogoElement && logoUrl) {
+        console.log('Загружаем центральный логотип:', logoUrl);
+        centerLogoElement.src = logoUrl;
+        centerLogoElement.onload = function() {
+            console.log('Центральный логотип загружен');
+            // Убедимся, что логотип непрозрачный
+            centerLogoElement.style.opacity = '1';
         };
-        logoElement.onerror = function() {
-            console.error('Ошибка загрузки логотипа:', logoUrl);
+        centerLogoElement.onerror = function() {
+            console.error('Ошибка загрузки центрального логотипа:', logoUrl);
             // Заглушка для логотипа
-            logoElement.style.display = 'none';
+            centerLogoElement.style.display = 'none';
         };
     } else {
-        console.error('Логотип или элемент не найден');
+        console.error('Центральный логотип или элемент не найден');
     }
 }
 
