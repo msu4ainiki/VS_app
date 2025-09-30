@@ -462,3 +462,23 @@ body {
         width: 180px;
     }
 }
+
+/* Стили для логотипа на заднем плане */
+.background-logo {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 0; /* Ниже всех изображений, но выше фона */
+    width: 40%;
+    max-width: 200px;
+    opacity: 0.4; /* Полупрозрачный для фонового эффекта */
+    pointer-events: none; /* Чтобы не мешал взаимодействию */
+}
+
+.logo-image {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.3));
+}
