@@ -19,9 +19,7 @@ const imageConfig = {
     'https://github.com/msu4ainiki/VS_app/raw/refs/heads/main/img/1759176719425.png']
 ],
 
-logo: [
-    'https://github.com/msu4ainiki/VS_app/raw/refs/heads/main/img/bck_sm.png'
-]
+logo: 'https://github.com/msu4ainiki/VS_app/raw/refs/heads/main/img/bck_sm.png'
 };
 
 // ПОДСКАЗКИ:
