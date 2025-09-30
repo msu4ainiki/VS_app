@@ -57,6 +57,7 @@ body {
     flex-direction: column;
     justify-content: center;
     background: transparent;
+    position: relative;
 }
 
 .teams-row {
@@ -230,20 +231,24 @@ body {
     text-shadow: 0 0 10px rgba(0, 102, 255, 0.7);
 }
 
-/* Центральный логотип */
+/* Центральный логотип - НА ФОНЕ */
 .center-logo-section {
     display: flex;
     align-items: center;
     justify-content: center;
     padding: 0 15px;
-    z-index: 5;
+    z-index: 0; /* Изменил с 5 на 0 - теперь на фоне */
     background: transparent;
-    position: relative;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none; /* Чтобы не мешал взаимодействию */
 }
 
 .center-logo-container {
-    width: 120px;
-    height: 120px;
+    width: 180px; /* Увеличил размер с 120px до 180px */
+    height: 180px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -270,6 +275,7 @@ body {
     gap: 20px;
     z-index: 10;
     background: transparent;
+    position: relative; /* Чтобы была поверх фона */
 }
 
 .team-controls {
@@ -366,6 +372,8 @@ body {
     display: block;
     width: 200px;
     box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+    position: relative; /* Чтобы была поверх фона */
+    z-index: 10;
 }
 
 .save-button:hover {
@@ -458,8 +466,8 @@ body {
     }
     
     .center-logo-container {
-        width: 70px;
-        height: 70px;
+        width: 140px; /* Уменьшил для маленьких экранов */
+        height: 140px;
     }
     
     .save-button {
@@ -471,8 +479,8 @@ body {
 
 @media (max-width: 768px) {
     .center-logo-container {
-        width: 80px;
-        height: 80px;
+        width: 150px; /* Уменьшил для планшетов */
+        height: 150px;
     }
 }
 
