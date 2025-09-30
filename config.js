@@ -10,7 +10,7 @@ const imageConfig = {
         'https://github.com/msu4ainiki/VS_app/raw/refs/heads/main/img/1759176819638.png'
     ,'https://github.com/msu4ainiki/VS_app/raw/refs/heads/main/img/1759238335702.png'
      ,'https://github.com/msu4ainiki/VS_app/raw/refs/heads/main/img/1759238684512_copy_458x646.png'
-        
+     
     ],
     
     // Изображения для правой команды (Лыжники)
