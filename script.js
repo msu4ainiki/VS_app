@@ -200,7 +200,7 @@ function sharePoster(imageBlob) {
 // Функция для получения ссылки на приложение
 function getAppLink() {
     // Замените на ссылку вашего бота в Telegram
-    return 'https://t.me/your_bot_username?startapp=poster';
+    return 'https://t.me/RunnersSkiers_bot/VS_app';
 }
 
 // Инициализация при загрузке
