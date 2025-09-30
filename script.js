@@ -15,23 +15,34 @@ let rightIndices = [0, 1, 2]; // Лыжники
 function loadLogo() {
     const logoElement = document.querySelector('.logo-image');
     if (logoElement && logoUrl) {
+        console.log('Загружаем логотип:', logoUrl);
         logoElement.src = logoUrl;
         logoElement.onload = function() {
             console.log('Логотип загружен');
         };
         logoElement.onerror = function() {
-            console.error('Ошибка загрузки логотипа');
+            console.error('Ошибка загрузки логотипа:', logoUrl);
+            // Заглушка для логотипа
+            logoElement.style.display = 'none';
         };
+    } else {
+        console.error('Логотип или элемент не найден');
     }
 }
 
 // Функция смены изображения с анимацией ТОЛЬКО для этого изображения
 function changeImage(imageElement, newSrc) {
+    if (!imageElement) {
+        console.error('Элемент изображения не найден');
+        return;
+    }
+    
     // Добавляем анимацию только к этому конкретному изображению
     imageElement.classList.add('image-changing');
     imageElement.src = newSrc;
     
     imageElement.onload = function() {
+        console.log('Изображение загружено:', newSrc);
         setTimeout(() => {
             imageElement.classList.remove('image-changing');
         }, 300);
@@ -41,6 +52,9 @@ function changeImage(imageElement, newSrc) {
     imageElement.onerror = function() {
         console.error('Ошибка загрузки изображения:', newSrc);
         imageElement.alt = 'Изображение не загружено';
+        // Заглушка для ошибки
+        imageElement.style.backgroundColor = '#333';
+        imageElement.innerHTML = '<span style="color: white; font-size: 12px;">Ошибка загрузки</span>';
         setTimeout(() => {
             imageElement.classList.remove('image-changing');
         }, 300);
@@ -49,39 +63,67 @@ function changeImage(imageElement, newSrc) {
 
 // Функция обновления конкретного изображения с анимацией
 function updateSingleImage(team, layerIndex) {
-    const imageElement = document.getElementById(`${team}-image-${layerIndex + 1}`);
-    if (!imageElement) return;
+    const imageId = `${team}-image-${layerIndex + 1}`;
+    const imageElement = document.getElementById(imageId);
+    
+    if (!imageElement) {
+        console.error('Элемент не найден:', imageId);
+        return;
+    }
     
     const array = team === 'left' ? runners : skiers;
-    const currentIndex = team === 'left' ? leftIndices[layerIndex] : rightIndices[layerIndex];
+    const indices = team === 'left' ? leftIndices : rightIndices;
+    const currentIndex = indices[layerIndex];
+    
+    console.log(`Обновление ${team} слой ${layerIndex + 1}, индекс:`, currentIndex, 'URL:', array[currentIndex]);
     
     if (array[currentIndex]) {
         changeImage(imageElement, array[currentIndex]);
+    } else {
+        console.error('Неверный индекс массива:', currentIndex, 'для команды', team);
     }
 }
 
 // Инициализация изображений (без анимации)
 function loadInitialImages() {
+    console.log('Начальная загрузка изображений...');
+    
     // Загружаем все изображения без анимации
     for (let i = 0; i < 3; i++) {
         const leftImage = document.getElementById(`left-image-${i + 1}`);
         const rightImage = document.getElementById(`right-image-${i + 1}`);
         
         if (leftImage && runners[leftIndices[i]]) {
+            console.log(`Загрузка левого изображения ${i + 1}:`, runners[leftIndices[i]]);
             leftImage.src = runners[leftIndices[i]];
+            leftImage.onerror = function() {
+                console.error('Ошибка загрузки начального изображения бегуна:', runners[leftIndices[i]]);
+                this.style.backgroundColor = '#333';
+            };
+        } else {
+            console.error('Не удалось найти элемент или URL для левого изображения', i + 1);
         }
         
         if (rightImage && skiers[rightIndices[i]]) {
+            console.log(`Загрузка правого изображения ${i + 1}:`, skiers[rightIndices[i]]);
             rightImage.src = skiers[rightIndices[i]];
+            rightImage.onerror = function() {
+                console.error('Ошибка загрузки начального изображения лыжника:', skiers[rightIndices[i]]);
+                this.style.backgroundColor = '#333';
+            };
+        } else {
+            console.error('Не удалось найти элемент или URL для правого изображения', i + 1);
         }
     }
     
-// Загружаем логотип
+    // Загружаем логотип
     loadLogo();
 }
 
 // Создание обработчиков для кнопок
 function setupEventListeners() {
+    console.log('Настройка обработчиков событий...');
+    
     // Обработчики для бегунов
     for (let i = 0; i < 3; i++) {
         const prevBtn = document.getElementById(`left-prev-${i + 1}`);
@@ -90,15 +132,17 @@ function setupEventListeners() {
         if (prevBtn && nextBtn) {
             prevBtn.addEventListener('click', () => {
                 leftIndices[i] = (leftIndices[i] - 1 + runners.length) % runners.length;
-                // Обновляем только это конкретное изображение
+                console.log(`Левая кнопка назад, слой ${i + 1}, новый индекс:`, leftIndices[i]);
                 updateSingleImage('left', i);
             });
             
             nextBtn.addEventListener('click', () => {
                 leftIndices[i] = (leftIndices[i] + 1) % runners.length;
-                // Обновляем только это конкретное изображение
+                console.log(`Левая кнопка вперед, слой ${i + 1}, новый индекс:`, leftIndices[i]);
                 updateSingleImage('left', i);
             });
+        } else {
+            console.error('Не найдены кнопки для левого слоя', i + 1);
         }
     }
     
@@ -110,15 +154,17 @@ function setupEventListeners() {
         if (prevBtn && nextBtn) {
             prevBtn.addEventListener('click', () => {
                 rightIndices[i] = (rightIndices[i] - 1 + skiers.length) % skiers.length;
-                // Обновляем только это конкретное изображение
+                console.log(`Правая кнопка назад, слой ${i + 1}, новый индекс:`, rightIndices[i]);
                 updateSingleImage('right', i);
             });
             
             nextBtn.addEventListener('click', () => {
                 rightIndices[i] = (rightIndices[i] + 1) % skiers.length;
-                // Обновляем только это конкретное изображение
+                console.log(`Правая кнопка вперед, слой ${i + 1}, новый индекс:`, rightIndices[i]);
                 updateSingleImage('right', i);
             });
+        } else {
+            console.error('Не найдены кнопки для правого слоя', i + 1);
         }
     }
 }
@@ -128,19 +174,35 @@ function createPoster() {
     const screenshotArea = document.getElementById('screenshot-area');
     const saveButton = document.getElementById('create-poster');
     
+    if (!screenshotArea) {
+        console.error('Не найдена область для скриншота');
+        return;
+    }
+    
     // Показываем загрузку
     const originalText = saveButton.textContent;
     saveButton.textContent = '🖼️ Создаём...';
     saveButton.disabled = true;
 
+    console.log('Начинаем создание плаката...');
+    
     // Создаем плакат с помощью html2canvas
     html2canvas(screenshotArea, {
         backgroundColor: '#000000',
         scale: 2,
         useCORS: true,
         allowTaint: false,
-        logging: false
+        logging: true, // Включаем логирование для отладки
+        onclone: function(clonedDoc) {
+            console.log('Клонирование документа для html2canvas');
+            // Убедимся, что все изображения загружены в клоне
+            const images = clonedDoc.querySelectorAll('img');
+            images.forEach((img, index) => {
+                console.log(`Изображение ${index + 1}:`, img.src, 'загружено:', img.complete);
+            });
+        }
     }).then(canvas => {
+        console.log('Плакат успешно создан');
         // Конвертируем canvas в Data URL
         const dataUrl = canvas.toDataURL('image/png', 1.0);
         
@@ -169,6 +231,11 @@ function showPosterModal(imageUrl) {
     const posterImage = document.getElementById('poster-result');
     const closeButton = document.getElementById('close-poster');
     const shareButton = document.getElementById('share-poster');
+    
+    if (!modal || !posterImage) {
+        console.error('Не найдены элементы модального окна');
+        return;
+    }
     
     // Устанавливаем изображение
     posterImage.src = imageUrl;
@@ -216,6 +283,8 @@ function sharePoster(imageUrl) {
 
 // Инициализация при загрузке
 document.addEventListener('DOMContentLoaded', function() {
+    console.log('DOM загружен, инициализируем приложение...');
+    
     // Настройка обработчиков кнопок
     setupEventListeners();
     
@@ -226,10 +295,18 @@ document.addEventListener('DOMContentLoaded', function() {
     const createPosterBtn = document.getElementById('create-poster');
     if (createPosterBtn) {
         createPosterBtn.addEventListener('click', createPoster);
+    } else {
+        console.error('Не найдена кнопка создания плаката');
     }
+    
+    console.log('Приложение инициализировано');
 });
 
-// Обработка клавиатуры для быстрого доступа
-document.addEventListener('keydown', (event) => {
-    // Можно добавить горячие клавиши при необходимости
-});
+// Добавляем глобальную обработку ошибок изображений
+window.addEventListener('error', function(e) {
+    if (e.target.tagName === 'IMG') {
+        console.error('Глобальная ошибка загрузки изображения:', e.target.src);
+        e.target.style.backgroundColor = '#333';
+        e.target.innerHTML = '<span style="color: white; font-size: 12px;">Ошибка загрузки</span>';
+    }
+}, true);
