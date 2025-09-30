@@ -5,10 +5,25 @@ tg.enableClosingConfirmation();
 // Используем изображения из конфигурации
 const runners = imageConfig.runners;
 const skiers = imageConfig.skiers;
+const logoUrl = imageConfig.logo; // Получаем URL логотипа
 
 // Индексы для каждого участника
 let leftIndices = [0, 1, 2]; // Бегуны
 let rightIndices = [0, 1, 2]; // Лыжники
+
+// Функция для загрузки логотипа
+function loadLogo() {
+    const logoElement = document.querySelector('.logo-image');
+    if (logoElement && logoUrl) {
+        logoElement.src = logoUrl;
+        logoElement.onload = function() {
+            console.log('Логотип загружен');
+        };
+        logoElement.onerror = function() {
+            console.error('Ошибка загрузки логотипа');
+        };
+    }
+}
 
 // Функция смены изображения с анимацией ТОЛЬКО для этого изображения
 function changeImage(imageElement, newSrc) {
@@ -60,6 +75,9 @@ function loadInitialImages() {
             rightImage.src = skiers[rightIndices[i]];
         }
     }
+    
+// Загружаем логотип
+    loadLogo();
 }
 
 // Создание обработчиков для кнопок
