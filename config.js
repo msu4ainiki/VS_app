@@ -4,7 +4,7 @@
 const imageConfig = {
     // Изображения для левой команды (Бегуны)
     runners: [
-    'https://github.com/msu4ainiki/VS_app/raw/refs/heads/main/img/Screenshot_20250928-234623~3.png', // PNG с прозрачностью
+    'https://github.com/msu4ainiki/VS_app/raw/refs/heads/main/img/1759205085747_copy_254x296.png', // PNG с прозрачностью
     'https://github.com/msu4ainiki/VS_app/raw/refs/heads/main/img/1759151720282.png',
     'https://github.com/msu4ainiki/VS_app/raw/refs/heads/main/img/1759160744779.png',
         'https://github.com/msu4ainiki/VS_app/raw/refs/heads/main/img/1759176819638.png'
