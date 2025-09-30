@@ -9,6 +9,7 @@ const imageConfig = {
     'https://github.com/msu4ainiki/VS_app/raw/refs/heads/main/img/1759160744779.png',
         'https://github.com/msu4ainiki/VS_app/raw/refs/heads/main/img/1759176819638.png'
     ,'https://github.com/msu4ainiki/VS_app/raw/refs/heads/main/img/1759238335702.png'
+     ,'https://github.com/msu4ainiki/VS_app/raw/refs/heads/main/img/1759238684512_copy_458x646.png'
         
     ],
     
@@ -21,7 +22,9 @@ const imageConfig = {
     'https://github.com/msu4ainiki/VS_app/raw/refs/heads/main/img/1759176719425.png',
     'https://github.com/msu4ainiki/VS_app/raw/refs/heads/main/img/1759212657792_copy_343x438.png',
     'https://raw.githubusercontent.com/msu4ainiki/VS_app/b78a29d593a1bc549fb58a527fe78b9a3383d384/img/1759176719425.png'
-    
+    ,'https://github.com/msu4ainiki/VS_app/raw/refs/heads/main/img/1759238483353.png'
+      ,'https://github.com/msu4ainiki/VS_app/raw/refs/heads/main/img/1759238640181.png'
+     ,'https://github.com/msu4ainiki/VS_app/raw/refs/heads/main/img/1759238731718_copy_434x681.png'   
     ],
 
 logo: 'https://github.com/msu4ainiki/VS_app/raw/refs/heads/main/img/bck_sm.png'
