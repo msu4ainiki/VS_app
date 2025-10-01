@@ -116,40 +116,31 @@ function setupEventListeners() {
     }
 }
 
-// Функция для создания и пересылки плаката
+// Функция для создания и отображения плаката
 function createAndSharePoster() {
-    const screenshotArea = document.getElementById('screenshot-area');
     const shareButton = document.getElementById('create-poster');
     
-    if (!screenshotArea) return;
-    
+    // Меняем текст кнопки на время загрузки
     const originalText = shareButton.textContent;
-    shareButton.textContent = '📤 Готовим плакат...';
+    shareButton.textContent = '📸 Создаём плакат...';
     shareButton.disabled = true;
 
-    html2canvas(screenshotArea, {
+    // Создаем скриншот ВСЕЙ страницы
+    html2canvas(document.body, {
         backgroundColor: '#000000',
-        scale: 0.8,
+        scale: 0.8, // Уменьшаем масштаб для оптимального размера файла
         useCORS: true,
         allowTaint: false,
-        logging: false
+        logging: false,
+        scrollY: -window.scrollY // Убедимся, что захватываем верх страницы
     }).then(canvas => {
+        // Конвертируем Canvas в Data URL
         const imageDataUrl = canvas.toDataURL('image/jpeg', 0.9);
         
-        const shareText = `🏆 Мой турнирный плакат "Бегуны против Лыжников"!\n\nСоздай свой тут: ${getAppLink()}`;
+        // Показываем модальное окно с результатом
+        showResultModal(imageDataUrl);
         
-        if (window.Telegram && window.Telegram.WebApp) {
-            Telegram.WebApp.shareMessage({
-                text: shareText,
-                media: {
-                    type: 'photo',
-                    url: imageDataUrl
-                }
-            });
-        } else {
-            fallbackShare(imageDataUrl);
-        }
-        
+        // Возвращаем исходное состояние кнопки
         shareButton.textContent = originalText;
         shareButton.disabled = false;
         
@@ -161,21 +152,64 @@ function createAndSharePoster() {
     });
 }
 
-// Функция для получения ссылки на приложение
-function getAppLink() {
-    return 'https://t.me/RunnersSkiers_bot?startapp=poster';
+// Функция показа модального окна с результатом
+function showResultModal(imageDataUrl) {
+    // Создаем или находим модальное окно
+    let modal = document.getElementById('result-modal');
+    
+    if (!modal) {
+        // Создаем модальное окно, если его нет
+        modal = document.createElement('div');
+        modal.id = 'result-modal';
+        modal.className = 'result-modal';
+        modal.innerHTML = `
+            <div class="result-modal-content">
+                <h3>Ваш плакат готов! 🎉</h3>
+                <img id="result-image" src="" alt="Ваш плакат" class="result-image">
+                <div class="result-buttons">
+                    <button id="download-btn" class="download-button">💾 Скачать плакат</button>
+                    <button id="close-result" class="close-button">Закрыть</button>
+                </div>
+                <p class="result-instruction">Нажмите "Скачать плакат", затем нажмите и удерживайте изображение для сохранения в галерею</p>
+            </div>
+        `;
+        document.body.appendChild(modal);
+        
+        // Обработчики для кнопок в модальном окне
+        document.getElementById('download-btn').addEventListener('click', function() {
+            downloadImage(imageDataUrl);
+        });
+        
+        document.getElementById('close-result').addEventListener('click', function() {
+            modal.classList.remove('active');
+        });
+        
+        // Закрытие по клику вне окна
+        modal.addEventListener('click', function(e) {
+            if (e.target === modal) {
+                modal.classList.remove('active');
+            }
+        });
+    }
+    
+    // Устанавливаем изображение и показываем окно
+    document.getElementById('result-image').src = imageDataUrl;
+    modal.classList.add('active');
 }
 
-// Запасной вариант, если основной метод не сработает
-function fallbackShare(imageDataUrl) {
+// Функция для скачивания изображения
+function downloadImage(imageDataUrl) {
     const link = document.createElement('a');
-    link.download = 'турнирный-плакат.jpg';
+    link.download = 'турнирный-плакат-бегуны-против-лыжников.jpg';
     link.href = imageDataUrl;
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
     
-    alert('Плакат готов! Он сохранен в вашу галерею. Теперь вы можете отправить его друзьям вручную.');
+    // Виброотклик при успешном скачивании
+    if (window.Telegram?.WebApp?.HapticFeedback) {
+        window.Telegram.WebApp.HapticFeedback.impactOccurred('light');
+    }
 }
 
 // Инициализация при загрузке
@@ -186,5 +220,6 @@ document.addEventListener('DOMContentLoaded', function() {
     const shareButton = document.getElementById('create-poster');
     if (shareButton) {
         shareButton.addEventListener('click', createAndSharePoster);
+        shareButton.textContent = '📸 Создать плакат';
     }
 });
