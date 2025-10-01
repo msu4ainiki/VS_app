@@ -24,6 +24,9 @@ const imageConfig = {
     ,'https://github.com/msu4ainiki/VS_app/raw/refs/heads/main/img/1759238483353.png'
       ,'https://github.com/msu4ainiki/VS_app/raw/refs/heads/main/img/1759238640181.png'
      ,'https://github.com/msu4ainiki/VS_app/raw/refs/heads/main/img/1759238731718_copy_434x681.png'   
+    ,'https://raw.githubusercontent.com/msu4ainiki/VS_app/refs/heads/main/img/1759176819638.png'
+
+        
     ],
 
 logo: 'https://github.com/msu4ainiki/VS_app/raw/refs/heads/main/img/bck_sm.png'
