@@ -1,4 +1,3 @@
-// ===== script.js =====
 const tg = window.Telegram.WebApp;
 tg.expand();
 tg.enableClosingConfirmation();
@@ -117,7 +116,7 @@ function setupEventListeners() {
     }
 }
 
-// Основная функция: Создание и пересылка изображения
+// Функция для создания и пересылки плаката
 function createAndSharePoster() {
     const screenshotArea = document.getElementById('screenshot-area');
     const shareButton = document.getElementById('create-poster');
@@ -125,82 +124,58 @@ function createAndSharePoster() {
     if (!screenshotArea) return;
     
     const originalText = shareButton.textContent;
-    shareButton.textContent = '📤 Отправляем...';
+    shareButton.textContent = '📤 Готовим плакат...';
     shareButton.disabled = true;
 
     html2canvas(screenshotArea, {
         backgroundColor: '#000000',
-        scale: 2,
+        scale: 0.8,
         useCORS: true,
         allowTaint: false,
         logging: false
     }).then(canvas => {
-        // Конвертируем canvas в Blob
-        canvas.toBlob(function(blob) {
-            sharePoster(blob);
-            
-            // Восстанавливаем кнопку
-            shareButton.textContent = originalText;
-            shareButton.disabled = false;
-            
-            // Виброотклик
-            if (window.Telegram?.WebApp?.HapticFeedback) {
-                window.Telegram.WebApp.HapticFeedback.impactOccurred('medium');
-            }
-        }, 'image/png');
+        const imageDataUrl = canvas.toDataURL('image/jpeg', 0.9);
+        
+        const shareText = `🏆 Мой турнирный плакат "Бегуны против Лыжников"!\n\nСоздай свой тут: ${getAppLink()}`;
+        
+        if (window.Telegram && window.Telegram.WebApp) {
+            Telegram.WebApp.shareMessage({
+                text: shareText,
+                media: {
+                    type: 'photo',
+                    url: imageDataUrl
+                }
+            });
+        } else {
+            fallbackShare(imageDataUrl);
+        }
+        
+        shareButton.textContent = originalText;
+        shareButton.disabled = false;
+        
     }).catch(error => {
         console.error('Ошибка создания плаката:', error);
         shareButton.textContent = originalText;
         shareButton.disabled = false;
-        alert('Ошибка создания плаката. Попробуйте еще раз.');
-    });
-}
-
-// Функция пересылки плаката
-function sharePoster(imageBlob) {
-    // Создаем FormData для отправки файла
-    const formData = new FormData();
-    formData.append('photo', imageBlob, 'tournament-poster.png');
-    
-    // Текст сообщения со ссылкой
-    const caption = `🏆 Посмотри на мой турнирный плакат!\n\nСоздай свой тут: ${getAppLink()}`;
-    formData.append('caption', caption);
-    formData.append('parse_mode', 'HTML');
-    
-    // Показываем индикатор загрузки
-    tg.showPopup({
-        title: 'Отправка',
-        message: 'Выберите контакт для отправки...',
-    }, () => {});
-    
-    // Отправляем изображение
-    tg.sendPhoto(formData, (error) => {
-        tg.closePopup();
-        
-        if (error) {
-            console.error('Ошибка отправки:', error);
-            
-            // Fallback: если отправка не удалась, предлагаем скачать
-            const url = URL.createObjectURL(imageBlob);
-            const link = document.createElement('a');
-            link.download = 'турнирный-плакат.png';
-            link.href = url;
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-            URL.revokeObjectURL(url);
-            
-            alert('Плакат готов! Он сохранён в вашу галерею. Вы можете отправить его вручную.');
-        } else {
-            console.log('Сообщение успешно отправлено!');
-        }
+        alert('Не удалось создать плакат. Пожалуйста, попробуйте еще раз.');
     });
 }
 
 // Функция для получения ссылки на приложение
 function getAppLink() {
-    // Замените на ссылку вашего бота в Telegram
-    return 'https://t.me/RunnersSkiers_bot/VS_app';
+    return 'https://t.me/RunnersSkiers_bot?startapp=poster';
+}
+
+// Запасной вариант, если основной метод не сработает
+function fallbackShare(imageDataUrl) {
+    const link = document.createElement('a');
+    link.download = 'турнирный-плакат.jpg';
+    link.href = imageDataUrl;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    
+    alert('Плакат готов! Он сохранен в вашу галерею. Теперь вы можете отправить его друзьям вручную.');
 }
 
 // Инициализация при загрузке
@@ -211,6 +186,5 @@ document.addEventListener('DOMContentLoaded', function() {
     const shareButton = document.getElementById('create-poster');
     if (shareButton) {
         shareButton.addEventListener('click', createAndSharePoster);
-        shareButton.textContent = '📤 Поделиться плакатом';
     }
 });
