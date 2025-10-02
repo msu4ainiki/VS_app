@@ -15,93 +15,90 @@
             <h1>Бегуны против Лыжников</h1>
         </div>
 
-        <!-- Область для скриншота -->
-        <div id="screenshot-area" class="screenshot-area">
-            <!-- Центральный логотип на фоне -->
-            <div class="center-logo-section">
-                <div class="center-logo-container">
-                    <img src="" alt="Логотип" class="center-logo-image">
+        <!-- Центральный квадратный контейнер -->
+        <div id="screenshot-area" class="central-container">
+            <!-- Левая команда - Бегуны -->
+            <div class="team left-team">
+                <div class="image-layer layer-1">
+                    <img id="left-image-1" src="" alt="Бегун 1" class="participant-image">
+                </div>
+                <div class="image-layer layer-2">
+                    <img id="left-image-2" src="" alt="Бегун 2" class="participant-image">
+                </div>
+                <div class="image-layer layer-3">
+                    <img id="left-image-3" src="" alt="Бегун 3" class="participant-image">
                 </div>
             </div>
 
-            <div class="teams-row">
-                <!-- Левая команда - Бегуны -->
-                <div class="team left-team">
-                    <div class="team-name">БЕГУНЫ</div>
-                    <div class="images-stack">
-                        <div class="image-layer layer-1">
-                            <img id="left-image-1" src="" alt="Бегун 1" class="participant-image">
-                        </div>
-                        <div class="image-layer layer-2">
-                            <img id="left-image-2" src="" alt="Бегун 2" class="participant-image">
-                        </div>
-                        <div class="image-layer layer-3">
-                            <img id="left-image-3" src="" alt="Бегун 3" class="participant-image">
-                        </div>
-                    </div>
-                </div>
+            <!-- Центральный логотип -->
+            <div class="center-logo">
+                <img src="" alt="Логотип" class="center-logo-image">
+            </div>
 
-                <!-- Правая команда - Лыжники -->
-                <div class="team right-team">
-                    <div class="team-name">ЛЫЖНИКИ</div>
-                    <div class="images-stack">
-                        <div class="image-layer layer-1">
-                            <img id="right-image-1" src="" alt="Лыжник 1" class="participant-image">
-                        </div>
-                        <div class="image-layer layer-2">
-                            <img id="right-image-2" src="" alt="Лыжник 2" class="participant-image">
-                        </div>
-                        <div class="image-layer layer-3">
-                            <img id="right-image-3" src="" alt="Лыжник 3" class="participant-image">
-                        </div>
-                    </div>
+            <!-- Правая команда - Лыжники -->
+            <div class="team right-team">
+                <div class="image-layer layer-1">
+                    <img id="right-image-1" src="" alt="Лыжник 1" class="participant-image">
+                </div>
+                <div class="image-layer layer-2">
+                    <img id="right-image-2" src="" alt="Лыжник 2" class="participant-image">
+                </div>
+                <div class="image-layer layer-3">
+                    <img id="right-image-3" src="" alt="Лыжник 3" class="participant-image">
                 </div>
             </div>
         </div>
 
-        <!-- Панель управления -->
-        <div class="controls-panel">
-            <!-- Управление бегунами -->
-            <div class="team-controls left-controls">
-                <div class="control-row">
-                    <span class="control-label">Бегун 1</span>
-                    <button id="left-prev-1" class="nav-button">◀</button>
-                    <button id="left-next-1" class="nav-button">▶</button>
-                </div>
-                <div class="control-row">
-                    <span class="control-label">Бегун 2</span>
-                    <button id="left-prev-2" class="nav-button">◀</button>
-                    <button id="left-next-2" class="nav-button">▶</button>
-                </div>
-                <div class="control-row">
-                    <span class="control-label">Бегун 3</span>
-                    <button id="left-prev-3" class="nav-button">◀</button>
-                    <button id="left-next-3" class="nav-button">▶</button>
-                </div>
+        <!-- Надписи команд и панель управления -->
+        <div class="controls-section">
+            <div class="team-labels">
+                <div class="team-name left-team-name">БЕГУНЫ</div>
+                <div class="team-name right-team-name">ЛЫЖНИКИ</div>
             </div>
 
-            <!-- Управление лыжниками -->
-            <div class="team-controls right-controls">
-                <div class="control-row">
-                    <span class="control-label">Лыжник 1</span>
-                    <button id="right-prev-1" class="nav-button">◀</button>
-                    <button id="right-next-1" class="nav-button">▶</button>
+            <div class="controls-panel">
+                <!-- Управление бегунами -->
+                <div class="team-controls left-controls">
+                    <div class="control-row">
+                        <span class="control-label">Бегун 1</span>
+                        <button id="left-prev-1" class="nav-button">◀</button>
+                        <button id="left-next-1" class="nav-button">▶</button>
+                    </div>
+                    <div class="control-row">
+                        <span class="control-label">Бегун 2</span>
+                        <button id="left-prev-2" class="nav-button">◀</button>
+                        <button id="left-next-2" class="nav-button">▶</button>
+                    </div>
+                    <div class="control-row">
+                        <span class="control-label">Бегун 3</span>
+                        <button id="left-prev-3" class="nav-button">◀</button>
+                        <button id="left-next-3" class="nav-button">▶</button>
+                    </div>
                 </div>
-                <div class="control-row">
-                    <span class="control-label">Лыжник 2</span>
-                    <button id="right-prev-2" class="nav-button">◀</button>
-                    <button id="right-next-2" class="nav-button">▶</button>
-                </div>
-                <div class="control-row">
-                    <span class="control-label">Лыжник 3</span>
-                    <button id="right-prev-3" class="nav-button">◀</button>
-                    <button id="right-next-3" class="nav-button">▶</button>
+
+                <!-- Управление лыжниками -->
+                <div class="team-controls right-controls">
+                    <div class="control-row">
+                        <span class="control-label">Лыжник 1</span>
+                        <button id="right-prev-1" class="nav-button">◀</button>
+                        <button id="right-next-1" class="nav-button">▶</button>
+                    </div>
+                    <div class="control-row">
+                        <span class="control-label">Лыжник 2</span>
+                        <button id="right-prev-2" class="nav-button">◀</button>
+                        <button id="right-next-2" class="nav-button">▶</button>
+                    </div>
+                    <div class="control-row">
+                        <span class="control-label">Лыжник 3</span>
+                        <button id="right-prev-3" class="nav-button">◀</button>
+                        <button id="right-next-3" class="nav-button">▶</button>
+                    </div>
                 </div>
             </div>
         </div>
 
         <!-- Кнопка создания плаката -->
-        <button id="create-poster" class="save-button">Создать плакат</button>
+        <button id="create-poster" class="save-button">📸 Создать плакат</button>
     </div>
 
     <!-- Подключаем конфиг и основной скрипт -->
