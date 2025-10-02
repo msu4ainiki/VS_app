@@ -94,40 +94,40 @@ body {
 
 /* Расположение для левой команды */
 .left-team .layer-1 {
-    top: 10%;
+    top: 0%;
     left: 10%;
     z-index: 3;
 }
 
 .left-team .layer-2 {
     top: 50%;
-    left: 50%;
+    left: 0;
     transform: translate(-50%, -50%);
     z-index: 2;
 }
 
 .left-team .layer-3 {
-    bottom: 10%;
+    bottom: 0;
     left: 10%;
     z-index: 1;
 }
 
 /* Расположение для правой команды */
 .right-team .layer-1 {
-    top: 10%;
+    top: 0;
     right: 10%;
     z-index: 3;
 }
 
 .right-team .layer-2 {
     top: 50%;
-    right: 50%;
+    right: 0;
     transform: translate(50%, -50%);
     z-index: 2;
 }
 
 .right-team .layer-3 {
-    bottom: 10%;
+    bottom: 0;
     right: 10%;
     z-index: 1;
 }
