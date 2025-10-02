@@ -4,11 +4,15 @@
     box-sizing: border-box;
 }
 
+:root {
+    color-scheme: var(--tg-color-scheme, light dark);
+}
+
 body {
     background: #000000;
     color: #fff;
     font-family: 'Arial', sans-serif;
-    height: 100vh;
+    min-height: 100vh;
     overflow: hidden;
 }
 
@@ -28,6 +32,7 @@ body {
     margin-bottom: 10px;
     position: relative;
     z-index: 10;
+    flex-shrink: 0;
 }
 
 .header-title h1 {
@@ -50,65 +55,49 @@ body {
     }
 }
 
-/* Область для скриншота */
-.screenshot-area {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    background: transparent;
+/* Центральный квадратный контейнер */
+.central-container {
     position: relative;
+    width: 90vmin;
+    height: 90vmin;
+    max-width: 500px;
+    max-height: 500px;
+    margin: 0 auto;
+    background: transparent;
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    flex-shrink: 0;
 }
 
-.teams-row {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 10px;
-    position: relative;
-    z-index: 2;
-    background: transparent;
-    height: 50vh;
-    min-height: 400px;
-}
-
+/* Команды внутри контейнера */
 .team {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    flex: 1;
-    position: relative;
-    background: transparent;
-    height: 100%;
-}
-
-/* Стек изображений с новым расположением */
-.images-stack {
-    position: relative;
+    position: absolute;
+    top: 0;
     width: 100%;
     height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
 }
 
+.left-team {
+    left: 0;
+}
+
+.right-team {
+    right: 0;
+}
+
+/* Слои изображений */
 .image-layer {
     position: absolute;
-    overflow: visible;
-    background: transparent;
-    border: none;
     display: flex;
     align-items: center;
     justify-content: center;
     transition: all 0.3s ease;
 }
 
-/* ОГРАНИЧЕНИЕ РАЗМЕРА ИЗОБРАЖЕНИЙ */
+/* Размер изображений - 30% ширины контейнера */
 .participant-image {
-    width: 30vw; /* 30% ширины экрана */
-    height: auto; /* Автоматическая высота для сохранения пропорций */
-    max-width: 100%; /* Защита от переполнения */
+    width: 30%;
+    height: auto;
     object-fit: contain;
     background: transparent;
     border-radius: 8px;
@@ -117,62 +106,82 @@ body {
     transition: filter 0.5s ease-in-out;
 }
 
-/* УБИРАЕМ МАСШТАБИРОВАНИЕ - ВСЕ ИЗОБРАЖЕНИЯ ОДИНАКОВОГО РАЗМЕРА */
-/* Левая команда - симметричное расположение */
+/* Расположение бегунов */
 .left-team .layer-1 {
-    top: 10%; /* Верхнее изображение смещено на 10% сверху */
-    left: 10%; /* И на 10% слева */
+    top: 10%;
+    left: 10%;
     z-index: 3;
-    transform: none; /* Убираем масштабирование */
 }
 
 .left-team .layer-2 {
-    top: 50%; /* Среднее изображение по центру */
-    left: 50%;
-    transform: translate(-50%, -50%); /* Центрируем */
+    top: 50%;
+    left: 10%;
+    transform: translateY(-50%);
     z-index: 2;
 }
 
 .left-team .layer-3 {
-    bottom: 10%; /* Нижнее изображение смещено на 10% снизу */
-    left: 10%; /* И на 10% слева */
+    bottom: 10%;
+    left: 10%;
     z-index: 1;
-    transform: none; /* Убираем масштабирование */
 }
 
-/* Правая команда - симметричное расположение */
+/* Расположение лыжников */
 .right-team .layer-1 {
-    top: 10%; /* Верхнее изображение смещено на 10% сверху */
-    right: 10%; /* И на 10% справа */
+    top: 10%;
+    right: 10%;
     z-index: 3;
-    transform: none; /* Убираем масштабирование */
 }
 
 .right-team .layer-2 {
-    top: 50%; /* Среднее изображение по центру */
-    right: 50%;
-    transform: translate(50%, -50%); /* Центрируем */
+    top: 50%;
+    right: 10%;
+    transform: translateY(-50%);
     z-index: 2;
 }
 
 .right-team .layer-3 {
-    bottom: 10%; /* Нижнее изображение смещено на 10% снизу */
-    right: 10%; /* И на 10% справа */
+    bottom: 10%;
+    right: 10%;
     z-index: 1;
-    transform: none; /* Убираем масштабирование */
 }
 
-/* Свечение для бегунов (огненное) - одинаковое для всех слоев */
+/* Центральный логотип */
+.center-logo {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 30%;
+    height: 30%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 5;
+    pointer-events: none;
+}
+
+.center-logo-image {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    opacity: 1;
+    filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.3));
+    border-radius: 10px;
+    background: transparent;
+}
+
+/* Свечение для бегунов */
 .left-team .participant-image {
     filter: drop-shadow(0 0 8px rgba(255, 68, 0, 0.7)) drop-shadow(0 0 15px rgba(255, 0, 0, 0.5));
 }
 
-/* Свечение для лыжников (ледяное) - одинаковое для всех слоев */
+/* Свечение для лыжников */
 .right-team .participant-image {
     filter: drop-shadow(0 0 8px rgba(0, 170, 255, 0.7)) drop-shadow(0 0 15px rgba(0, 136, 255, 0.5));
 }
 
-/* Анимация только для изменяемого изображения */
+/* Анимация смены изображений */
 .image-changing {
     animation: fadeIn 0.3s ease-out;
 }
@@ -188,79 +197,46 @@ body {
     }
 }
 
+/* Секция с надписями и управлением */
+.controls-section {
+    margin-top: 20px;
+    flex-shrink: 0;
+}
+
+.team-labels {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+}
+
 .team-name {
-    font-size: 16px;
+    font-size: 18px;
     font-weight: bold;
     text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
     letter-spacing: 2px;
     text-align: center;
-    z-index: 2;
-    position: relative;
-    background: transparent;
-    height: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    margin-bottom: 10px;
+    padding: 8px 20px;
+    border-radius: 20px;
 }
 
-/* Цвета названий команд */
-.left-team .team-name {
+.left-team-name {
     color: #ff0000;
     text-shadow: 0 0 10px rgba(255, 0, 0, 0.7);
+    background: rgba(255, 0, 0, 0.1);
 }
 
-.right-team .team-name {
+.right-team-name {
     color: #0066ff;
     text-shadow: 0 0 10px rgba(0, 102, 255, 0.7);
-}
-
-/* Центральный логотип */
-.center-logo-section {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0 15px;
-    z-index: 0;
-    background: transparent;
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    pointer-events: none;
-}
-
-.center-logo-container {
-    width: 180px;
-    height: 180px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: transparent;
-    border-radius: 15px;
-    position: relative;
-}
-
-.center-logo-image {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-    opacity: 1;
-    filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.3));
-    border-radius: 10px;
-    background: transparent;
+    background: rgba(0, 102, 255, 0.1);
 }
 
 /* Панель управления */
 .controls-panel {
-    margin-top: 20px;
     display: flex;
     justify-content: space-between;
     gap: 20px;
-    z-index: 10;
     background: transparent;
-    position: relative;
 }
 
 .team-controls {
@@ -288,7 +264,7 @@ body {
     background: transparent;
 }
 
-/* КНОПКИ: красные слева, синие справа */
+/* Кнопки управления */
 .nav-button {
     border: none;
     color: white;
@@ -299,11 +275,10 @@ body {
     cursor: pointer;
     transition: all 0.3s ease;
     backdrop-filter: blur(10px);
-    z-index: 3;
     font-weight: bold;
 }
 
-/* Красные кнопки для левой команды */
+/* Красные кнопки для бегунов */
 #left-prev-1, #left-next-1,
 #left-prev-2, #left-next-2,
 #left-prev-3, #left-next-3 {
@@ -320,7 +295,7 @@ body {
     transform: scale(1.1);
 }
 
-/* Синие кнопки для правой команды */
+/* Синие кнопки для лыжников */
 #right-prev-1, #right-next-1,
 #right-prev-2, #right-next-2,
 #right-prev-3, #right-next-3 {
@@ -341,7 +316,7 @@ body {
     transform: scale(0.95);
 }
 
-/* Кнопка сохранения */
+/* Кнопка создания плаката */
 .save-button {
     background: linear-gradient(45deg, #ff0000, #0066ff);
     border: none;
@@ -353,12 +328,10 @@ body {
     cursor: pointer;
     transition: all 0.3s ease;
     text-align: center;
-    margin: 10px auto;
+    margin: 20px auto;
     display: block;
     width: 200px;
     box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
-    position: relative;
-    z-index: 10;
 }
 
 .save-button:hover {
@@ -376,121 +349,24 @@ body {
     transform: none;
 }
 
-/* Стили для модального окна с результатом */
-.result-modal {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.95);
-    z-index: 10000;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 20px;
-}
-
-.result-modal.active {
-    display: flex;
-}
-
-.result-modal-content {
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(10px);
-    border-radius: 15px;
-    padding: 20px;
-    max-width: 90%;
-    max-height: 90%;
-    text-align: center;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-}
-
-.result-modal-content h3 {
-    color: #fff;
-    margin-bottom: 15px;
-    font-size: 20px;
-}
-
-.result-image {
-    max-width: 100%;
-    max-height: 60vh;
-    border-radius: 10px;
-    border: 2px solid rgba(255, 255, 255, 0.3);
-    margin: 10px 0;
-}
-
-.result-buttons {
-    display: flex;
-    gap: 10px;
-    justify-content: center;
-    margin: 20px 0;
-    flex-wrap: wrap;
-}
-
-.download-button {
-    background: linear-gradient(45deg, #ff0000, #0066ff);
-    border: none;
-    color: white;
-    padding: 12px 20px;
-    border-radius: 25px;
-    font-size: 16px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.download-button:hover {
-    transform: scale(1.05);
-    box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
-}
-
-.close-button {
-    background: rgba(255, 255, 255, 0.2);
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    color: white;
-    padding: 12px 20px;
-    border-radius: 25px;
-    font-size: 16px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.close-button:hover {
-    background: rgba(255, 255, 255, 0.3);
-}
-
-.result-instruction {
-    color: rgba(255, 255, 255, 0.7);
-    font-size: 14px;
-    margin-top: 10px;
-    line-height: 1.4;
-}
-
-/* Адаптивность для очень маленьких экранов */
+/* Адаптивность */
 @media (max-height: 700px) {
     .header-title h1 {
         font-size: 20px;
         padding: 10px 0;
     }
     
-    .teams-row {
-        height: 45vh;
-        min-height: 350px;
-    }
-    
-    .participant-image {
-        width: 35vw; /* Немного больше на маленьких экранах */
+    .central-container {
+        width: 80vmin;
+        height: 80vmin;
     }
     
     .team-name {
-        font-size: 14px;
-        height: 35px;
+        font-size: 16px;
     }
     
     .controls-panel {
-        margin-top: 10px;
+        gap: 15px;
     }
     
     .nav-button {
@@ -504,25 +380,46 @@ body {
         min-width: 70px;
     }
     
-    .center-logo-container {
-        width: 140px;
-        height: 140px;
-    }
-    
     .save-button {
         padding: 10px 20px;
         font-size: 14px;
         width: 180px;
+        margin: 15px auto;
     }
 }
 
 @media (max-width: 768px) {
-    .center-logo-container {
-        width: 150px;
-        height: 150px;
+    .central-container {
+        width: 85vmin;
+        height: 85vmin;
+    }
+}
+
+/* Горизонтальная ориентация */
+@media (max-height: 500px) {
+    .container {
+        flex-direction: row;
+        align-items: center;
     }
     
-    .participant-image {
-        width: 35vw; /* Немного больше на узких экранах */
+    .header-title {
+        display: none;
     }
+    
+    .central-container {
+        width: 70vmin;
+        height: 70vmin;
+        margin: 0 20px;
     }
+    
+    .controls-section {
+        margin-top: 0;
+        margin-left: 20px;
+        flex: 1;
+    }
+    
+    .team-labels {
+        flex-direction: column;
+        gap: 10px;
+    }
+}
