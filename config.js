@@ -7,7 +7,8 @@ const imageConfig = {
     // PNG с прозрачностью
     'https://raw.githubusercontent.com/msu4ainiki/VS_app/main/img/1759151720282.png',
     'https://github.com/msu4ainiki/VS_app/raw/refs/heads/main/img/1759160744779.png',
-        'https://github.com/msu4ainiki/VS_app/raw/refs/heads/main/img/1759176819638.png'
+    'https://github.com/msu4ainiki/VS_app/raw/refs/heads/main/img/1759387668551_copy_540x671.png'
+    ,'https://github.com/msu4ainiki/VS_app/raw/refs/heads/main/img/1759176819638.png'
     ,'https://github.com/msu4ainiki/VS_app/raw/refs/heads/main/img/1759238335702.png'
      ,'https://github.com/msu4ainiki/VS_app/raw/refs/heads/main/img/1759238684512_copy_458x646.png'
      ,'https://raw.githubusercontent.com/msu4ainiki/VS_app/refs/heads/main/img/1759176819638.png'
