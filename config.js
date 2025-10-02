@@ -5,7 +5,7 @@ const imageConfig = {
     // Изображения для левой команды (Бегуны)
     runners: [
     // PNG с прозрачностью
-    'https://github.com/msu4ainiki/VS_app/raw/refs/heads/main/img/1759151720282.png',
+    'https://raw.githubusercontent.com/msu4ainiki/VS_app/main/img/1759151720282.png',
     'https://github.com/msu4ainiki/VS_app/raw/refs/heads/main/img/1759160744779.png',
         'https://github.com/msu4ainiki/VS_app/raw/refs/heads/main/img/1759176819638.png'
     ,'https://github.com/msu4ainiki/VS_app/raw/refs/heads/main/img/1759238335702.png'
@@ -17,7 +17,7 @@ const imageConfig = {
     // Изображения для правой команды (Лыжники)
     skiers: [
     // PNG с прозрачностью
-    'https://github.com/msu4ainiki/VS_app/raw/refs/heads/main/img/1759160143809_copy_504x489.png',
+    'https://raw.githubusercontent.com/msu4ainiki/VS_app/main/img/1759160143809_copy_504x489.png',
     'https://github.com/msu4ainiki/VS_app/raw/refs/heads/main/img/1759143592630.png',
     'https://github.com/msu4ainiki/VS_app/raw/refs/heads/main/img/1759160422940.png',
     'https://github.com/msu4ainiki/VS_app/raw/refs/heads/main/img/1759176719425.png',
