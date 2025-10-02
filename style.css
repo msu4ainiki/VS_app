@@ -68,7 +68,7 @@ body {
     position: relative;
     z-index: 2;
     background: transparent;
-    height: 50vh; /* Увеличили высоту для большего разброса */
+    height: 50vh;
     min-height: 400px;
 }
 
@@ -83,11 +83,11 @@ body {
     height: 100%;
 }
 
-/* Стек изображений с диагональным расположением */
+/* Стек изображений с новым расположением */
 .images-stack {
     position: relative;
     width: 100%;
-    height: 100%; /* Занимает всю высоту контейнера команды */
+    height: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -101,14 +101,15 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: transform 0.3s ease;
+    transition: all 0.3s ease;
 }
 
-/* ОДИНАКОВАЯ ВЫСОТА ДЛЯ ВСЕХ ФОТОГРАФИЙ */
+/* ОГРАНИЧЕНИЕ РАЗМЕРА ИЗОБРАЖЕНИЙ */
 .participant-image {
-    height: 30vh; /* Фиксированная высота - 30% экрана */
-    width: auto; /* Ширина автоматически подстраивается */
-    object-fit: contain; /* Сохраняем пропорции */
+    width: 30vw; /* 30% ширины экрана */
+    height: auto; /* Автоматическая высота для сохранения пропорций */
+    max-width: 100%; /* Защита от переполнения */
+    object-fit: contain;
     background: transparent;
     border-radius: 8px;
     position: relative;
@@ -116,74 +117,59 @@ body {
     transition: filter 0.5s ease-in-out;
 }
 
-/* Левая команда - диагональ с БОЛЬШИМ вертикальным разбросом */
+/* УБИРАЕМ МАСШТАБИРОВАНИЕ - ВСЕ ИЗОБРАЖЕНИЯ ОДИНАКОВОГО РАЗМЕРА */
+/* Левая команда - симметричное расположение */
 .left-team .layer-1 {
-    top: 0;
-    left: 0;
-    z-index: 1;
-    transform: scale(0.8);
+    top: 10%; /* Верхнее изображение смещено на 10% сверху */
+    left: 10%; /* И на 10% слева */
+    z-index: 3;
+    transform: none; /* Убираем масштабирование */
 }
 
 .left-team .layer-2 {
-    top: 25%; /* Увеличили вертикальный разброс */
-    left: 15%;
+    top: 50%; /* Среднее изображение по центру */
+    left: 50%;
+    transform: translate(-50%, -50%); /* Центрируем */
     z-index: 2;
-    transform: scale(0.9);
 }
 
 .left-team .layer-3 {
-    top: 50%; /* Увеличили вертикальный разброс */
-    left: 30%;
-    z-index: 3;
-    transform: scale(1);
+    bottom: 10%; /* Нижнее изображение смещено на 10% снизу */
+    left: 10%; /* И на 10% слева */
+    z-index: 1;
+    transform: none; /* Убираем масштабирование */
 }
 
-/* Правая команда - диагональ с БОЛЬШИМ вертикальным разбросом */
+/* Правая команда - симметричное расположение */
 .right-team .layer-1 {
-    top: 0;
-    right: 0;
-    z-index: 1;
-    transform: scale(0.8);
+    top: 10%; /* Верхнее изображение смещено на 10% сверху */
+    right: 10%; /* И на 10% справа */
+    z-index: 3;
+    transform: none; /* Убираем масштабирование */
 }
 
 .right-team .layer-2 {
-    top: 25%; /* Увеличили вертикальный разброс */
-    right: 15%;
+    top: 50%; /* Среднее изображение по центру */
+    right: 50%;
+    transform: translate(50%, -50%); /* Центрируем */
     z-index: 2;
-    transform: scale(0.9);
 }
 
 .right-team .layer-3 {
-    top: 50%; /* Увеличили вертикальный разброс */
-    right: 30%;
-    z-index: 3;
-    transform: scale(1);
+    bottom: 10%; /* Нижнее изображение смещено на 10% снизу */
+    right: 10%; /* И на 10% справа */
+    z-index: 1;
+    transform: none; /* Убираем масштабирование */
 }
 
-/* Свечение для бегунов (огненное) */
-.left-team .layer-1 .participant-image {
-    filter: drop-shadow(0 0 12px rgba(255, 68, 0, 0.5)) drop-shadow(0 0 10px rgba(255, 0, 0, 0.3));
-}
-
-.left-team .layer-2 .participant-image {
+/* Свечение для бегунов (огненное) - одинаковое для всех слоев */
+.left-team .participant-image {
     filter: drop-shadow(0 0 8px rgba(255, 68, 0, 0.7)) drop-shadow(0 0 15px rgba(255, 0, 0, 0.5));
 }
 
-.left-team .layer-3 .participant-image {
-    filter: drop-shadow(0 0 5px rgba(255, 68, 0, 0.9)) drop-shadow(0 0 20px rgba(255, 0, 0, 0.7));
-}
-
-/* Свечение для лыжников (ледяное) */
-.right-team .layer-1 .participant-image {
-    filter: drop-shadow(0 0 12px rgba(0, 170, 255, 0.5)) drop-shadow(0 0 10px rgba(0, 136, 255, 0.3));
-}
-
-.right-team .layer-2 .participant-image {
+/* Свечение для лыжников (ледяное) - одинаковое для всех слоев */
+.right-team .participant-image {
     filter: drop-shadow(0 0 8px rgba(0, 170, 255, 0.7)) drop-shadow(0 0 15px rgba(0, 136, 255, 0.5));
-}
-
-.right-team .layer-3 .participant-image {
-    filter: drop-shadow(0 0 5px rgba(0, 170, 255, 0.9)) drop-shadow(0 0 20px rgba(0, 136, 255, 0.7));
 }
 
 /* Анимация только для изменяемого изображения */
@@ -495,7 +481,7 @@ body {
     }
     
     .participant-image {
-        height: 25vh; /* Немного меньше на маленьких экранах */
+        width: 35vw; /* Немного больше на маленьких экранах */
     }
     
     .team-name {
@@ -536,24 +522,7 @@ body {
         height: 150px;
     }
     
-    /* Уменьшаем разброс на мобильных */
-    .left-team .layer-2 {
-        top: 20%;
-        left: 10%;
+    .participant-image {
+        width: 35vw; /* Немного больше на узких экранах */
     }
-    
-    .left-team .layer-3 {
-        top: 40%;
-        left: 20%;
     }
-    
-    .right-team .layer-2 {
-        top: 20%;
-        right: 10%;
-    }
-    
-    .right-team .layer-3 {
-        top: 40%;
-        right: 20%;
-    }
-}
