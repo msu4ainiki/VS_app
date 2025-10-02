@@ -68,7 +68,7 @@ body {
     position: relative;
     z-index: 2;
     background: transparent;
-    height: 60vh;
+    height: 50vh; /* Увеличили высоту для большего разброса */
     min-height: 400px;
 }
 
@@ -87,7 +87,7 @@ body {
 .images-stack {
     position: relative;
     width: 100%;
-    height: 80%;
+    height: 100%; /* Занимает всю высоту контейнера команды */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -95,8 +95,6 @@ body {
 
 .image-layer {
     position: absolute;
-    width: 70%;
-    height: 70%;
     overflow: visible;
     background: transparent;
     border: none;
@@ -106,59 +104,60 @@ body {
     transition: transform 0.3s ease;
 }
 
-/* Левая команда - диагональ сверху-слева вниз-вправо */
-.left-team .layer-1 {
-    top: 0;
-    left: 10%;
-    z-index: 1;
-    transform: scale(1);
-}
-
-.left-team .layer-2 {
-    top: 15%;
-    left: 0;
-    z-index: 2;
-    transform: scale(1);
-}
-
-.left-team .layer-3 {
-    top: 30%;
-    left: 10%;
-    z-index: 3;
-    transform: scale(1);
-}
-
-/* Правая команда - диагональ сверху-справа вниз-влево */
-.right-team .layer-1 {
-    top: 0;
-    right: 10%;
-    z-index: 1;
-    transform: scale(1);
-}
-
-.right-team .layer-2 {
-    top: 15%;
-    right: 0;
-    z-index: 2;
-    transform: scale(1);
-}
-
-.right-team .layer-3 {
-    top: 30%;
-    right: 10%;
-    z-index: 3;
-    transform: scale(1);
-}
-
+/* ОДИНАКОВАЯ ВЫСОТА ДЛЯ ВСЕХ ФОТОГРАФИЙ */
 .participant-image {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
+    height: 30vh; /* Фиксированная высота - 30% экрана */
+    width: auto; /* Ширина автоматически подстраивается */
+    object-fit: contain; /* Сохраняем пропорции */
     background: transparent;
     border-radius: 8px;
     position: relative;
     z-index: 2;
     transition: filter 0.5s ease-in-out;
+}
+
+/* Левая команда - диагональ с БОЛЬШИМ вертикальным разбросом */
+.left-team .layer-1 {
+    top: 0;
+    left: 0;
+    z-index: 1;
+    transform: scale(0.8);
+}
+
+.left-team .layer-2 {
+    top: 25%; /* Увеличили вертикальный разброс */
+    left: 15%;
+    z-index: 2;
+    transform: scale(0.9);
+}
+
+.left-team .layer-3 {
+    top: 50%; /* Увеличили вертикальный разброс */
+    left: 30%;
+    z-index: 3;
+    transform: scale(1);
+}
+
+/* Правая команда - диагональ с БОЛЬШИМ вертикальным разбросом */
+.right-team .layer-1 {
+    top: 0;
+    right: 0;
+    z-index: 1;
+    transform: scale(0.8);
+}
+
+.right-team .layer-2 {
+    top: 25%; /* Увеличили вертикальный разброс */
+    right: 15%;
+    z-index: 2;
+    transform: scale(0.9);
+}
+
+.right-team .layer-3 {
+    top: 50%; /* Увеличили вертикальный разброс */
+    right: 30%;
+    z-index: 3;
+    transform: scale(1);
 }
 
 /* Свечение для бегунов (огненное) */
@@ -231,23 +230,23 @@ body {
     text-shadow: 0 0 10px rgba(0, 102, 255, 0.7);
 }
 
-/* Центральный логотип - НА ФОНЕ */
+/* Центральный логотип */
 .center-logo-section {
     display: flex;
     align-items: center;
     justify-content: center;
     padding: 0 15px;
-    z-index: 0; /* Изменил с 5 на 0 - теперь на фоне */
+    z-index: 0;
     background: transparent;
     position: absolute;
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
-    pointer-events: none; /* Чтобы не мешал взаимодействию */
+    pointer-events: none;
 }
 
 .center-logo-container {
-    width: 180px; /* Увеличил размер с 120px до 180px */
+    width: 180px;
     height: 180px;
     display: flex;
     align-items: center;
@@ -275,7 +274,7 @@ body {
     gap: 20px;
     z-index: 10;
     background: transparent;
-    position: relative; /* Чтобы была поверх фона */
+    position: relative;
 }
 
 .team-controls {
@@ -372,7 +371,7 @@ body {
     display: block;
     width: 200px;
     box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
-    position: relative; /* Чтобы была поверх фона */
+    position: relative;
     z-index: 10;
 }
 
@@ -389,109 +388,6 @@ body {
     opacity: 0.6;
     cursor: not-allowed;
     transform: none;
-}
-
-/* Модальное окно для плаката */
-.poster-modal {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.95);
-    z-index: 10000;
-    display: none;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 20px;
-}
-
-.poster-modal.active {
-    display: flex;
-}
-
-.poster-image {
-    max-width: 90%;
-    max-height: 70%;
-    border: 2px solid white;
-    border-radius: 10px;
-    box-shadow: 0 0 30px rgba(255, 255, 255, 0.2);
-}
-
-.poster-instruction {
-    color: white;
-    text-align: center;
-    margin: 20px 0;
-    font-size: 16px;
-    line-height: 1.4;
-}
-
-.poster-buttons {
-    display: flex;
-    gap: 10px;
-    margin-top: 10px;
-}
-
-/* Адаптивность для очень маленьких экранов */
-@media (max-height: 700px) {
-    .header-title h1 {
-        font-size: 20px;
-        padding: 10px 0;
-    }
-    
-    .teams-row {
-        height: 50vh;
-        min-height: 350px;
-    }
-    
-    .team-name {
-        font-size: 14px;
-        height: 35px;
-    }
-    
-    .controls-panel {
-        margin-top: 10px;
-    }
-    
-    .nav-button {
-        width: 35px;
-        height: 35px;
-        font-size: 14px;
-    }
-    
-    .control-label {
-        font-size: 12px;
-        min-width: 70px;
-    }
-    
-    .center-logo-container {
-        width: 140px; /* Уменьшил для маленьких экранов */
-        height: 140px;
-    }
-    
-    .save-button {
-        padding: 10px 20px;
-        font-size: 14px;
-        width: 180px;
-    }
-}
-
-@media (max-width: 768px) {
-    .center-logo-container {
-        width: 150px; /* Уменьшил для планшетов */
-        height: 150px;
-    }
-}
-
-/* Убедимся, что все контейнеры имеют правильные размеры */
-.left-team .images-stack,
-.right-team .images-stack {
-    min-height: 200px;
-}
-
-.image-layer {
-    min-height: 100px;
 }
 
 /* Стили для модального окна с результатом */
@@ -584,4 +480,80 @@ body {
     font-size: 14px;
     margin-top: 10px;
     line-height: 1.4;
+}
+
+/* Адаптивность для очень маленьких экранов */
+@media (max-height: 700px) {
+    .header-title h1 {
+        font-size: 20px;
+        padding: 10px 0;
+    }
+    
+    .teams-row {
+        height: 45vh;
+        min-height: 350px;
+    }
+    
+    .participant-image {
+        height: 25vh; /* Немного меньше на маленьких экранах */
+    }
+    
+    .team-name {
+        font-size: 14px;
+        height: 35px;
+    }
+    
+    .controls-panel {
+        margin-top: 10px;
+    }
+    
+    .nav-button {
+        width: 35px;
+        height: 35px;
+        font-size: 14px;
+    }
+    
+    .control-label {
+        font-size: 12px;
+        min-width: 70px;
+    }
+    
+    .center-logo-container {
+        width: 140px;
+        height: 140px;
+    }
+    
+    .save-button {
+        padding: 10px 20px;
+        font-size: 14px;
+        width: 180px;
+    }
+}
+
+@media (max-width: 768px) {
+    .center-logo-container {
+        width: 150px;
+        height: 150px;
+    }
+    
+    /* Уменьшаем разброс на мобильных */
+    .left-team .layer-2 {
+        top: 20%;
+        left: 10%;
+    }
+    
+    .left-team .layer-3 {
+        top: 40%;
+        left: 20%;
+    }
+    
+    .right-team .layer-2 {
+        top: 20%;
+        right: 10%;
+    }
+    
+    .right-team .layer-3 {
+        top: 40%;
+        right: 20%;
+    }
 }
