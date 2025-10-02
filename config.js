@@ -36,7 +36,11 @@ const imageConfig = {
 
 // ФУНКЦИЯ ДЛЯ ФОРМИРОВАНИЯ ПОЛНЫХ URL-АДРЕСОВ
 function getFullImageUrls(filenames, folder = '') {
-    return filenames.map(filename => baseGitHubUrl + folder + filename);
+    return filenames.map(filename => {
+        const fullUrl = baseGitHubUrl + folder + filename;
+        console.log('Формируем URL:', fullUrl);
+        return fullUrl;
+    });
 }
 
 // ГОТОВЫЕ МАССИВЫ С ПОЛНЫМИ ССЫЛКАМИ
