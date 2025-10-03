@@ -89,14 +89,14 @@ body {
     height: auto;
     object-fit: contain;
     background: transparent;
-    border-radius: 8px;
+    border-radius: 0px;
 }
 
 /* Расположение для левой команды */
 .left-team .layer-1 {
     top: 0%;
     left: 10%;
-    z-index: 3;
+    z-index: 1;
     transform: translate(-50%, -50%);
 }
 
@@ -110,7 +110,7 @@ body {
 .left-team .layer-3 {
     bottom: 0;
     left: 10%;
-    z-index: 1;
+    z-index: 3;
     transform: translate(-50%, -50%);
 }
 
