@@ -193,6 +193,14 @@ body {
     filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.3));
 }
 
+.logo-xx {
+    width: 20%;
+    height: 20%;
+    z-index: 1;
+    opacity: 1;
+    filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.3));
+}
+
 /* Свечение для бегунов */
 .left-team .participant-image {
     filter: drop-shadow(0 0 8px rgba(255, 68, 0, 0.7)) drop-shadow(0 0 15px rgba(255, 0, 0, 0.5));
