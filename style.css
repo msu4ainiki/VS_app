@@ -74,6 +74,45 @@ body {
     right: 0;
 }
 
+/* === НАЧАЛО: СТИЛИ ДЛЯ НОВЫХ ТЕКСТОВЫХ ЭЛЕМЕНТОВ === */
+.match-header {
+    position: absolute;
+    top: 15px;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    z-index: 5;
+}
+
+.match-title {
+    font-size: 24px;
+    font-weight: bold;
+    color: #fff;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.7);
+    margin-bottom: 5px;
+}
+
+.match-label {
+    font-size: 18px;
+    font-weight: bold;
+    color: #fff;
+    text-shadow: 0 0 8px rgba(255, 255, 255, 0.5);
+}
+
+.match-date {
+    position: absolute;
+    bottom: 15px;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    font-size: 16px;
+    font-weight: bold;
+    color: #fff;
+    text-shadow: 0 0 8px rgba(255, 255, 255, 0.5);
+    z-index: 5;
+}
+/* === КОНЕЦ: СТИЛИ ДЛЯ НОВЫХ ТЕКСТОВЫХ ЭЛЕМЕНТОВ === */
+
 /* Слои изображений */
 .image-layer {
     position: absolute;
