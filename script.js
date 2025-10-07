@@ -164,9 +164,3 @@ document.addEventListener('DOMContentLoaded', function() {
         shareButton.addEventListener('click', createAndSharePoster);
     }
 });
-
-   // === НАЧАЛО: ПРИМЕР ИСПОЛЬЗОВАНИЯ ЗАМЕНЫ ТЕКСТА НА ИЗОБРАЖЕНИЕ ===
-    // Раскомментируйте следующую строку, чтобы заменить текст на изображение:
-   // replaceTitleWithImage('https://raw.githubusercontent.com/msu4ainiki/VS_app/refs/heads/main/img/1759856594359.png', 'XX');
-    // === КОНЕЦ: ПРИМЕР ИСПОЛЬЗОВАНИЯ ЗАМЕНЫ ТЕКСТА НА ИЗОБРАЖЕНИЕ ===
-});
