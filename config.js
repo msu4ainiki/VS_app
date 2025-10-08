@@ -25,6 +25,13 @@ const imageConfig = {
     ,'https://raw.githubusercontent.com/msu4ainiki/VS_app/main/img/1759473589548_copy_493x600.png'
     ,'https://raw.githubusercontent.com/msu4ainiki/VS_app/main/img/1759499457359_copy_281x442.png'
     ,'https://raw.githubusercontent.com/msu4ainiki/VS_app/main/img/1759637858091.png'
+,'https://raw.githubusercontent.com/msu4ainiki/VS_app/main/img/1759930756164.png'
+,'https://github.com/msu4ainiki/VS_app/raw/main/img/1759938192969.png'
+,'https://github.com/msu4ainiki/VS_app/raw/main/img/1759938008858.png'
+,'https://github.com/msu4ainiki/VS_app/raw/refs/heads/main/img/1759938336094.png'
+
+
+        
     ],
 
     // Логотип
