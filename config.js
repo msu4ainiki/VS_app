@@ -16,7 +16,8 @@ const imageConfig = {
     // Изображения для правой команды (Лыжники)
     skiers: [
      'https://raw.githubusercontent.com/msu4ainiki/VS_app/main/img/1759160143809_copy_504x489.png'
-    ,'https://raw.githubusercontent.com/msu4ainiki/VS_app/main/img/1759143592630.png'
+    //,'https://raw.githubusercontent.com/msu4ainiki/VS_app/main/img/1759143592630.png'
+    ,'https://raw.githubusercontent.com/msu4ainiki/VS_app/main/img/1759942137445.png'
     ,'https://raw.githubusercontent.com/msu4ainiki/VS_app/main/img/1759160422940.png'
     ,'https://raw.githubusercontent.com/msu4ainiki/VS_app/main/img/1759176719425.png'
     ,'https://raw.githubusercontent.com/msu4ainiki/VS_app/main/img/1759212657792_copy_343x438.png'
