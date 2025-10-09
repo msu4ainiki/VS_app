@@ -11,7 +11,8 @@ const imageConfig = {
     ,'https://raw.githubusercontent.com/msu4ainiki/VS_app/main/img/1759176819638.png'
     ,'https://raw.githubusercontent.com/msu4ainiki/VS_app/main/img/1759946548738.png'
     ,'https://raw.githubusercontent.com/msu4ainiki/VS_app/main/img/1759640022460.png'
-        ],
+     ,'https://raw.githubusercontent.com/msu4ainiki/VS_app/main/img/1759990852640.png'
+    ],
     
     // Изображения для правой команды (Лыжники)
     skiers: [
