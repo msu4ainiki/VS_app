@@ -31,7 +31,7 @@ const imageConfig = {
 ,'https://raw.githubusercontent.com/msu4ainiki/VS_app/main/img/1759938192969.png'
 ,'https://raw.githubusercontent.com/msu4ainiki/VS_app/main/img/1759938008858.png'
 ,'https://raw.githubusercontent.com/msu4ainiki/VS_app/main/img/1759938336094.png'
-
+,'https://raw.githubusercontent.com/msu4ainiki/VS_app/main/img/1759982535970.png'
 
         
     ],
