@@ -140,9 +140,9 @@ body {
 
 .left-team .layer-2 {
     top: 50%;
-    left: -10;
+    left: 0;
     z-index: 2;
-    transform: translate(0, 0);
+    transform: translate(0, -50%);
 }
 
 .left-team .layer-3 {
@@ -160,9 +160,9 @@ body {
 
 .right-team .layer-2 {
     top: 50%;
-    right: 10;
+    right: 0;
     z-index: 2;
-    transform: translate(0, 0);
+    transform: translate(0, 50%);
 }
 
 .right-team .layer-3 {
