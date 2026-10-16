@@ -1,6 +1,19 @@
-const tg = window.Telegram.WebApp;
-tg.expand();
-tg.enableClosingConfirmation();
+// === Telegram WebApp (безопасная инициализация) ===
+const tg = window.Telegram?.WebApp;
+
+if (tg) {
+    try {
+        tg.ready();
+        tg.expand();
+        if (typeof tg.enableClosingConfirmation === 'function') {
+            tg.enableClosingConfirmation();
+        }
+    } catch (e) {
+        console.warn('Ошибка инициализации Telegram WebApp:', e);
+    }
+} else {
+    console.warn('Telegram WebApp недоступен — открыто вне Telegram или скрипт не загрузился');
+}
 
 // Индексы для каждого участника
 let leftIndices = [0, 1, 2];
