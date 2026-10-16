@@ -102,8 +102,13 @@
         <!-- <button id="create-poster" class="save-button">📸 Создать плакат</button> -->
     </div>
 
-    <!-- Подключаем конфиг и основной скрипт -->
+        <!-- Подключаем конфиг и основной скрипт -->
     <script src="config.js"></script>
+    <script>
+        if (window.Telegram?.WebApp) {
+            Telegram.WebApp.ready();
+            Telegram.WebApp.expand();
+        }
+    </script>
     <script src="script.js"></script>
-</body>
 </html>
